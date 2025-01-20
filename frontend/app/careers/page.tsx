@@ -6,7 +6,6 @@ import { AiOutlineMail } from 'react-icons/ai';
 function Internship() {
   return (
     <div className="flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-20 p-6 md:p-12">
-      {/* Image Section */}
       <Image
         src="/images/intern.png"
         width={636}
@@ -15,7 +14,6 @@ function Internship() {
         className="w-full max-w-md lg:max-w-lg h-auto"
       />
 
-      {/* Content Section */}
       <div className="flex flex-col justify-center gap-6 lg:gap-8">
         <h1 className="text-2xl lg:text-3xl font-bold text-gray-800">
           2024 Batch-2 Internship Program Applicants
@@ -28,8 +26,8 @@ function Internship() {
     width: '246.13px',
     height: '56.3px',
     gap: '0px',
-    borderRadius: '12px', // Ensure this is applied
-    opacity: '1', // Set opacity to 1 for visibility
+    borderRadius: '12px', 
+    opacity: '1', 
     border: '2px solid transparent',
     borderImageSource: 'linear-gradient(91.55deg, #FFA600 0%, #FF191C 99.74%)',
     animationTimingFunction: 'ease-out',
