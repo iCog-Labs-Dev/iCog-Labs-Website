@@ -27,8 +27,7 @@ const Footer: React.FC = () => {
 
       {/* Footer Section */}
       <div
-        className="rounded-l-md bg-gray-100 p-4 flex flex-col justify-between"
-        
+        className="rounded-tl-lg bg-gray-100 p-8 flex flex-col justify-between"
       >
         {/* Top Section */}
         <div className="flex justify-between items-center mb-4">
@@ -47,12 +46,10 @@ const Footer: React.FC = () => {
           {/* Partners */}
           <h4 className="font-semibold mb-2">Partners</h4>
           <div className="text-center bg-purple-950">
-            
             <img
               src="/SingularityLogo.png"
               alt="SingularityNET"
               className="w-32"
-              
             />
           </div>
 
