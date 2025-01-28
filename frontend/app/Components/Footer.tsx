@@ -4,10 +4,11 @@ import { AiOutlineTwitter } from 'react-icons/ai';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-50">
-      {/* Join Our Team Section */}
+    <footer>
+      
+      {/* Join Our Team Section  */}
       <div
-        className="bg-white py-16"
+        className="bg-white py-10"
         style={{ height: '85vh', borderBottomLeftRadius: '50px' }}
       >
         <div className="container mx-auto px-8 text-center h-full flex flex-col justify-center">
@@ -26,87 +27,74 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Footer Section */}
-      <div
-        className="rounded-tl-lg bg-gray-100 p-8 flex flex-col justify-between"
-      >
-        {/* Top Section */}
-        <div className="flex justify-between items-center mb-4">
-          {/* Left Section */}
-          <div className="flex flex-col items-start">
-            <img
-              src="/iCogLogo.png"
-              alt="iCog Labs Logo"
-              className="w-32 mb-2"
-            />
-            <p className="text-sm text-gray-600">
-              Engineering the Future of <span className="text-orange-500">Intelligence</span>
-            </p>
-          </div>
+<div className="relative bg-gray-100 p-6 rounded-tr-lg">
+  {/* Decorative Image Positioned in the Right Corner */}
+  <img 
+    src="/cornerImage.png" 
+    alt="Decorative Image" 
+    className="absolute right-0 bottom-10 h-48 w-auto max-w-sm object-contain"
+/>
 
-          {/* Partners */}
-          <h4 className="font-semibold mb-2">Partners</h4>
-          <div className="text-center bg-purple-950">
-            <img
-              src="/SingularityLogo.png"
-              alt="SingularityNET"
-              className="w-32"
-            />
-          </div>
+  <div className="container mx-auto px-6 max-w-screen-lg">
+    {/* Top Section */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
+      {/* Left: Logo & Motto */}
+      <div className="flex flex-col items-center md:items-start">
+        <img src="/iCogLogo.png" alt="iCog Labs Logo" className="w-32 mb-2" />
+        <p className="text-sm text-gray-600">Engineering the Future of</p>
+        <span className="text-orange-500 font-semibold">Intelligence</span>
+      </div>
 
-          {/* Subscribe to Blogs */}
-          <div className="flex flex-col">
-            <h4 className="font-semibold mb-2">Subscribe to Our Blogs</h4>
-            <form className="flex">
-              <input
-                type="email"
-                placeholder="Email address"
-                className="border border-gray-300 px-4 py-2 rounded-l-lg focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="bg-orange-500 text-white px-6 py-2 rounded-r-lg hover:bg-orange-600 transition duration-200"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className="flex justify-between items-center border-t pt-4">
-          {/* Left: Copyright */}
-          <div className="text-sm text-gray-600">
-            <p>©2024 iCog Labs. All rights reserved.</p>
-          </div>
-
-          {/* Center: Location */}
-          <div className="text-sm text-gray-600 text-center">
-            <p>Addis Ababa, Ethiopia</p>
-          </div>
-
-          {/* Right: Social Media */}
-          <div className="flex items-center space-x-4">
-            <p className="text-sm text-gray-600">Follow Us On</p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-gray-500 hover:text-orange-500">
-                <AiOutlineTwitter size={20} />
-              </a>
-              <a href="#" className="text-gray-500 hover:text-orange-500">
-                <FaInstagram size={20} />
-              </a>
-              <a href="#" className="text-gray-500 hover:text-orange-500">
-                <FaLinkedin size={20} />
-              </a>
-              <a href="#" className="text-gray-500 hover:text-orange-500">
-                <FaYoutube size={20} />
-              </a>
-              <a href="#" className="text-gray-500 hover:text-orange-500">
-                <FaGithub size={20} />
-              </a>
-            </div>
-          </div>
+      {/* Center: Partners */}
+      <div className="flex flex-col items-center">
+        <h4 className="font-semibold mb-2">Partners</h4>
+        <div className="bg-purple-950 p-2 rounded-lg">
+          <img src="/SingularityLogo.png" alt="SingularityNET" className="w-36" />
         </div>
       </div>
+
+      {/* Right: Subscription */}
+      <div className="flex flex-col items-center md:items-end">
+        <h4 className="font-semibold mb-2">Subscribe to Our Blogs</h4>
+        <form className="flex w-full max-w-sm">
+          <input
+            type="email"
+            placeholder="Email address"
+            className="flex-1 border border-gray-300 px-4 py-2 rounded-l-lg focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="bg-orange-500 text-white px-6 py-2 rounded-r-lg hover:bg-orange-600 transition duration-200"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+
+    {/* Bottom Section */}
+    <div className="flex flex-col md:flex-row justify-between items-center border-t border-gray-300 mt-6 pt-4 text-center md:text-left">
+      {/* Left: Copyright */}
+      <p className="text-sm text-gray-600">©2024 iCog Labs. All rights reserved.</p>
+
+      {/* Center: Location */}
+      <p className="text-sm text-gray-600 mt-2 md:mt-0">Addis Ababa, Ethiopia</p>
+
+      {/* Right: Social Media */}
+      <div className="flex items-center space-x-4 mt-2 md:mt-0">
+        <p className="text-sm text-gray-600">Follow Us On</p>
+        <div className="flex space-x-4">
+          <a href="#" className="text-gray-500 hover:text-orange-500"><AiOutlineTwitter size={20} /></a>
+          <a href="#" className="text-gray-500 hover:text-orange-500"><FaInstagram size={20} /></a>
+          <a href="#" className="text-gray-500 hover:text-orange-500"><FaLinkedin size={20} /></a>
+          <a href="#" className="text-gray-500 hover:text-orange-500"><FaYoutube size={20} /></a>
+          <a href="#" className="text-gray-500 hover:text-orange-500"><FaGithub size={20} /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
     </footer>
   );
 };
