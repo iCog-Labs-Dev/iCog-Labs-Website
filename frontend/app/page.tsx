@@ -1,11 +1,17 @@
-import React from 'react'
+import Footer from "./Components/Footer";
+import Home from "./Components/Home";
+import Navbar from "./Components/navBar";
 
-function page() {
+
+
+
+
+export default function HomePage() {
   return (
-    <div>
-      page
-    </div>
-  )
+    <main>
+      <Navbar />
+      <Home/>
+      <Footer/>
+    </main>
+  );
 }
-
-export default page
