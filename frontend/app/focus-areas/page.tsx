@@ -9,9 +9,9 @@ import Footer from '../Components/Footer';
 const FocusAreasPage: React.FC = () => {
   return (
     <main>
-      <Navbar/>
+      {/* <Navbar/> */}
       <FocusAreas />
-      <Footer/>
+      {/* <Footer/> */}
     </main>
   );
 };
