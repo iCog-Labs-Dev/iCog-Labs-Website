@@ -43,10 +43,10 @@ function page() {
           <span className="text-white px-1">Blogs</span>/<span className="text-[#950406] px-1">Releases</span>
         </div>
         <div
-          className="font-jost text-5xl font-semibold tracking-wide text-justify max-w-[600px] text-white"
+          className="font-jost text-5xl font-semibold tracking-wide text-justify   lg:max-w-[600px]  text-white"
         >
           <span
-            className="text-4xl md:text-6xl bg-gradient-to-r from-[#F03401] to-[#FE8E03] bg-clip-text text-transparent"
+            className=" bg-gradient-to-r from-[#F03401] to-[#FE8E03] bg-clip-text text-transparent"
           >
             Sophia 
           </span> 
