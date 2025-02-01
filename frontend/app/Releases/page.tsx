@@ -1,108 +1,74 @@
 import React from 'react'
 import Image from 'next/image';
 
-function Card({ img,text,title }: { img: string, text: string,title: string }) {   
-    return (<>
-    <div>
-        <Image 
-            src={img} 
-            alt="Card image"
-            width={401} 
-            height={401} 
-            style={{
-
-            }}
-        />
-        <div
-            style={{
-            width: '112px',
-            height: '52px',
-            fontFamily: 'Jost',
-            fontSize: '32px',
-            fontWeight: 600,
-            lineHeight: '51.2px',
-            letterSpacing: '4px',
-            textAlign: 'justify',
-            textUnderlinePosition: 'from-font',
-            textDecorationSkipInk: 'none',
-            color: 'linear-gradient(98.95deg, #FE8E03 -42.93%, #F03401 103.66%)',
-            }} 
-        >
-            {title}
+function Card({ img, text, title }: { img: string, text: string, title: string }) {   
+    return (
+        <div className="max-w-[401px] shadow-md relative p-5 h-full">
+            <Image 
+                src={img} 
+                alt="Card image"
+                width={401} 
+                height={401} 
+            />
             <div
-                style={{
-                    width: '411px',
-                    height: '73px',
-                    top: '1643px',
-                    left: '271px',
-                    gap: '0px',
-                    opacity: '0px',
-                    fontFamily: 'Jost',
-                    fontSize: '24px',
-                    fontWeight: 400,
-                    lineHeight: '34px',
-                    letterSpacing: '0.25px',
-                    textAlign: 'justify',
-                    textUnderlinePosition: 'from-font',
-                    textDecorationSkipInk: 'none',
-                }}
+                className="w-full h-13 font-jost text-4xl font-semibold leading-[51.2px] tracking-widest text-justify bg-gradient-to-r from-[#FE8E03] to-[#F03401] bg-clip-text text-transparent"
+            >
+                {title}
+            </div>
+            <div
+                className="w-full h-auto gap-0 opacity-100 font-jost text-2xl font-normal leading-[34px] tracking-[0.25px] text-justify py-4 flex-grow"
             >
                 {text}
+                <div className="text-right absolute bottom-4 right-4">
+                    <Image 
+                        src='/images/Vector.png' 
+                        alt='Icon' 
+                        width={24} 
+                        height={24} 
+                    />
+                </div> 
             </div>
-           <div className='align-right '>
-            icon
-            
-            </div> 
         </div>
-    </div>
-    
-    </>);
+    );
 }
 
 function page() {
   return (
     <div>
-    <div 
-        className='flex flex-col justify-left items-center gap-12 lg:gap-20 p-6 md:p-12'
-        style={{
-            backgroundImage: 'url(/images/sofi.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-        }}
-    >
+      <div 
+        className="flex flex-col justify-start items-start gap-12 lg:gap-20 p-6 md:p-12 bg-cover bg-center w-full"
+        style={{ backgroundImage: 'url(/images/sofi.png)' }}
+      >
         <div>   
-            Blogs/Releases
+          <span className="text-white px-1">Blogs</span>/<span className="text-[#950406] px-1">Releases</span>
         </div>
-        <div>
-            Sophia the Robot 
-            New Vision Processing 
-            and Perception Software
-            by Hanson Robotics
+        <div
+          className="font-jost text-5xl font-semibold tracking-wide text-justify max-w-[600px] text-white"
+        >
+          <span
+            className="text-4xl md:text-6xl bg-gradient-to-r from-[#F03401] to-[#FE8E03] bg-clip-text text-transparent"
+          >
+            Sophia 
+          </span> 
+           <> </>the Robot New Vision Processing 
+          and Perception Software
+          <br/>
+          by Hanson Robotics
         </div>
-    </div> 
-    <div>
-    <button
-  style={{
-    width: '246.13px',
-    height: '56.3px',
-    gap: '0px',
-    borderRadius: '12px', 
-    opacity: '1', 
-    border: '2px solid transparent',
-    borderImageSource: 'linear-gradient(91.55deg, #FFA600 0%, #FF191C 99.74%)',
-    animationTimingFunction: 'ease-out',
-    animationDuration: '300ms',
-    color: 'rgba(149, 4, 6, 1)',
-    borderImageSlice: 1,
-    background: 'linear-gradient(272.17deg, rgba(255, 166, 0, 0.09) 4.81%, rgba(255, 25, 28, 0.09) 105.54%)',
-    alignSelf: 'flex-end',
-  }}
->
-  Read More
-</button>
+        <div className="flex justify-start">
+          <button
+            className="w-[246.13px] h-[56.3px] gap-0 rounded-lg ease-out duration-300 text-[#950406] bg-gradient-to-r from-[#FFA600] to-[#FF191C] self-start"
+          >
+            Read More
+          </button>
+        </div>
+      </div> 
 
-    </div>
-
+      <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-12 lg:gap-20 p-6 md:p-12">
+        <Card img='/images/1.png' text='Distributed Computing Power & Storage for Decentralized Networks' title='NuNet' />
+        <Card img='/images/2.png' text='AI-Powered Genetic Analysis Tool for Biologists.' title='Mozi' />
+        <Card img='/images/3.png' text='Electric bikes to young delivery workers with credit scoring assistance.' title='Honda E-Bikes ' />
+      </div>
     </div>
   )
 }
