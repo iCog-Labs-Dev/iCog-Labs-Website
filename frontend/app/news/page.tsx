@@ -4,7 +4,22 @@ import { ImageCard, Card } from '../Components/Card'
 function page() {
     return (
         <>
+      
             <div className='w-full flex flex-col items-center p-20'>
+            <div className='self-start flex w-full justify-between items-center mb-4'>
+                <div>
+                    <span className="text-black px-1">Blogs</span>/<span className="text-[#950406] px-1">Releases</span>
+                </div>
+                <div className='flex items-center'></div>
+                <select>
+                    <option value="popular-topics<">popular topics</option>
+                    <option value="ethical-ai">Ethical AI</option>
+                    <option value="ai-conferences">AI Conferences</option>
+                    <option value="latest">Latest</option>
+
+                    <option value="ai-partnerships">AI Partnerships</option>
+                </select>
+            </div>
 
                 <div className='flex flex-row justify-center items-center gap-12 lg:gap-20 p-6 md:p-12 bg-cover bg-center w-full pl-4 pt-4'>
                     <div className='flex-1'>
