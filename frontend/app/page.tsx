@@ -1,16 +1,12 @@
-import Footer from "./Components/Footer";
-import Home from "./Components/Home";
-import Navbar from "./Components/navBar";
-
-
-
+import Home from "./Components/Home"
+import FuturisticFooter from "./Components/FuturisticFooter"
 
 export default function HomePage() {
   return (
-    <main>
-      {/* <Navbar /> */}
-      <Home/>
-      {/* <Footer/> */}
+    <main className="bg-black text-white">
+      <Home />
+      {/* <FuturisticFooter /> */}
     </main>
-  );
+  )
 }
+

@@ -6,7 +6,13 @@ import Link from "next/link"
 import Image from "next/image"
 import { FaInstagram, FaLinkedin, FaYoutube, FaGithub, FaTwitter, FaArrowRight } from "react-icons/fa"
 
-const Footer: React.FC = () => {
+function Footer(){
+  return (
+    <></>
+  )
+}
+
+const Fofoter: React.FC = () => {
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -242,8 +248,8 @@ const Footer: React.FC = () => {
 
 // Helper Components
 interface FooterLinkColumnProps {
-  title: string;
-  links: { label: string; href: string }[];
+  title: string
+  links: { label: string; href: string }[]
 }
 
 const FooterLinkColumn: React.FC<FooterLinkColumnProps> = ({ title, links }) => {
@@ -269,8 +275,8 @@ const FooterLinkColumn: React.FC<FooterLinkColumnProps> = ({ title, links }) => 
 }
 
 interface SocialIconProps {
-  icon: React.ReactNode;
-  href: string;
+  icon: React.ReactNode
+  href: string
 }
 
 const SocialIcon: React.FC<SocialIconProps> = ({ icon, href }) => {
