@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
+import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  images: {
+    domains: ['media.istockphoto.com'], // Add the required domain here
+  },
 };
 
 export default nextConfig;

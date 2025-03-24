@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaInstagram, FaLinkedin, FaYoutube, FaGithub } from 'react-icons/fa';
 import { AiOutlineTwitter } from 'react-icons/ai';
+import { BackgroundBeams } from './ui/background-beams';
 
 const Footer: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
+      
 
       {/* Footer Section */}
 <div className="relative bg-gray-100 p-6 rounded-tr-lg">
