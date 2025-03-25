@@ -1,88 +1,74 @@
-// Navbar.tsx
-"use client";
-import React, { useState } from "react";
-import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, MenuItem } from "../Components/ui/navbar-menu"; // Import Menu & MenuItem components
+"use client"
+
+import React, { useState, useEffect } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { motion } from "framer-motion"
+import { FaSearch } from "react-icons/fa"
+import { Menu, MenuItem } from "./ui/navbar-menu" // Assuming the Aeternity Menu component is imported
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<string | null>(null); // Active item tracking
-  const pathname = usePathname();
+  const [activeMenu, setActiveMenu] = useState<string | null>(null) // For active hover
+  const pathname = usePathname()
 
-  const menuItems = [
-    { label: "Home", href: "/" },
-    { label: "Focus Areas", href: "/focus-areas" },
-    { label: "Careers", href: "/careers" },
-    { label: "Blogs", href: "/blogs" },
-    { label: "About Us", href: "/about-us" },
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      // The scroll effect logic can be kept, but we remove the background color change on scroll
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/focus-areas", label: "Focus Areas" },
+    { href: "/careers", label: "Careers" },
+    { href: "/news", label: "News" },
+    { href: "/about-us", label: "About Us" },
+  ]
 
   return (
-    <nav className="p-4 bg-gray-800 w-full"> {/* Changed background to dark gray */}
-      <div className="flex justify-between items-center w-full">
-        {/* Logo */}
-        <img src="/iCogLogo.png" alt="iCog Labs Logo" className="w-20 h-20" />
-
-        {/* Desktop Navigation with Menu & MenuItem */}
-        <Menu setActive={setActiveMenu}>
-          {menuItems.map(({ href, label }) => (
-            <MenuItem key={label} setActive={setActiveMenu} active={activeMenu} item={label}>
-              <Link
-                href={href}
-                className={`text-lg font-semibold ${
-                  pathname === href ? "text-orange-600 underline" : "text-gray-300 hover:text-orange-600" // Adjusted text colors
-                }`}
-              >
-                {label}
-              </Link>
-              {/* Dropdown content example */}
-              {activeMenu === label && (
-                <div className="grid grid-cols-1 gap-2">
-                  <Link href="/sub-page-1">Sub Page 1</Link>
-                  <Link href="/sub-page-2">Sub Page 2</Link>
-                  <Link href="/sub-page-3">Sub Page 3</Link>
-                </div>
-              )}
-            </MenuItem>
-          ))}
-        </Menu>
-
-        {/* Search Bar */}
-        <div className="relative hidden md:block w-64">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full bg-gray-700 border border-gray-600 p-2 rounded-lg shadow-md focus:ring-2 focus:ring-orange-500 focus:outline-none text-white" // Adjusted search bar styles
+    <nav className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 bg-transparent`}>
+      <div className="container-custom flex justify-between items-center">
+        {/* Left: Logo */}
+        <Link href="/">
+          <motion.img
+            src="/iCogLogo.png"
+            alt="iCog Labs Logo"
+            className="w-16 h-16 md:w-20 md:h-20"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           />
-          <FaSearch className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
+        </Link>
+
+        {/* Center: Nav Items with Aceternity UI Styling */}
+        <div className="hidden md:block">
+          <Menu setActive={setActiveMenu}>
+            {navLinks.map(({ href, label }) => (
+              <MenuItem key={href} item={label} setActive={setActiveMenu} active={activeMenu}>
+                <Link href={href} className={`${pathname === href ? "text-brand-red" : "text-black"}`}>
+                  {label}
+                </Link>
+              </MenuItem>
+            ))}
+          </Menu>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <FaTimes className="text-white" /> : <FaBars className="text-white" />} {/* Adjusted icon colors */}
-        </button>
+        {/* Right: Search Icon */}
+        <div className="relative">
+          <motion.button
+            className="text-black hover:text-brand-orange transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <FaSearch className="text-xl" />
+          </motion.button>
+        </div>
       </div>
-
-      {/* Mobile Dropdown */}
-      <ul className={`md:hidden ${isOpen ? "block" : "hidden"} bg-gray-800 shadow-lg rounded-lg p-4 space-y-4`}> {/* Adjusted mobile menu background */}
-        {menuItems.map(({ href, label }) => (
-          <li key={href}>
-            <Link
-              href={href}
-              className={`block text-lg font-semibold ${
-                pathname === href ? "text-orange-600 underline" : "text-gray-300 hover:text-orange-600" // Adjusted text colors
-              }`}
-              onClick={() => setIsOpen(false)} // Close menu on selection
-            >
-              {label}
-            </Link>
-          </li>
-        ))}
-      </ul>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

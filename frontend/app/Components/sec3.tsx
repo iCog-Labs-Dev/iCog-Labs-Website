@@ -1,7 +1,8 @@
 "use client";
 
-import { AnimatedTestimonials } from "../Components/ui/animated-testemonials"; // Adjust the import path if needed
-import React, { useState } from "react";
+import React from "react";
+import { AnimatedTestimonials } from "../Components/ui/animated-testemonials";
+import { useState } from "react";
 import { insights } from "../data";
 
 const InsightsSection = () => {
@@ -18,25 +19,22 @@ const InsightsSection = () => {
     setCurrentPage(page);
   };
 
-  // Map displayedInsights to match the 'Testimonial' type structure
   const testimonials = displayedInsights.map((insight) => ({
-    quote: insight.description, // Map 'description' as the quote
-    designation: insight.category || "Insight", // Use 'category' or a default designation
-    name: insight.title, // Title mapped as the name of the testimonial
-    src: insight.image, // Map 'image' as the testimonial image
+    quote: insight.description,
+    designation: insight.category || "Insight",
+    name: insight.title,
+    src: insight.image,
   }));
 
   return (
-    <section className="py-16 bg-gray-100">
+    <section className="py-16 bg-gradient-to-b from-gray-900 to-black"> {/* Changed bg-gray-100 to gradient */}
       <div className="container mx-auto px-8">
-        <h2 className="text-4xl font-bold text-center text-orange-500 mb-10">
+        <h2 className="text-4xl font-bold text-center text-orange-500 mb-10 text-white"> {/* changed text color */}
           Latest Insights
         </h2>
 
-        {/* Pass the transformed testimonials */}
         <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
 
-        {/* Pagination buttons */}
         <div className="mt-8 flex justify-center space-x-4">
           {Array.from({ length: totalPages }, (_, index) => (
             <button

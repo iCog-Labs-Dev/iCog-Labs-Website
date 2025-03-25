@@ -1,7 +1,6 @@
 import Footer from "./Components/Footer";
-import AnimatedLandingPage from "./Components/Home";
-import Hero from "./Components/Home";
-import Home from "./Components/Home";
+import AnimatedLandingPage from "./Components/Hero";
+import Hero from "./Components/Hero";
 import Navbar from "./Components/navBar";
 import ICogLabsSection from "./Components/Sec1";
 import CoreValuesSection from "./Components/sec2";
@@ -11,8 +10,7 @@ export default function HomePage() {
   return (
     <main>
       <Navbar />
-      <AnimatedLandingPage/>
-      <ICogLabsSection/>
+      <Hero/>
       <CoreValuesSection/>
       <InsightsSection/>
       <Footer />
