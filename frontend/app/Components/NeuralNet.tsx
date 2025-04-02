@@ -1,176 +1,184 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 
-interface Particle {
+interface Node {
   x: number
   y: number
   vx: number
   vy: number
   radius: number
-  color: string
   connections: number[]
+  isInteractive?: boolean
 }
 
-interface NeuralNetworkProps {
-  className?: string;
-}
+export default function NeuralNetwork() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const mouseRef = useRef<{ x: number; y: number } | null>(null)
 
-// Function to generate particle data
-function generateParticles(canvas: HTMLCanvasElement | null): Particle[] {
-  if (!canvas) return [];
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
 
-  const particles: Particle[] = [];
-  const particleCount = Math.min(Math.floor(window.innerWidth / 10), 100);
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
 
-  for (let i = 0; i < particleCount; i++) {
-    const radius = Math.random() * 2 + 1;
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
-    const vx = (Math.random() - 0.5) * 0.5;
-    const vy = (Math.random() - 0.5) * 0.5;
-
-    const connections: number[] = [];
-    const connectionCount = Math.floor(Math.random() * 3) + 1;
-    for (let j = 0; j < connectionCount; j++) {
-      const connectedTo = Math.floor(Math.random() * particleCount);
-      if (connectedTo !== i) {
-        connections.push(connectedTo);
-      }
+    // Set canvas dimensions
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
     }
 
-    particles.push({
-      x,
-      y,
-      vx,
-      vy,
-      radius,
-      color: `rgba(255, 140, 0, ${Math.random() * 0.5 + 0.2})`,
-      connections,
-    });
-  }
+    resizeCanvas()
+    window.addEventListener("resize", resizeCanvas)
 
-  return particles;
-}
-
-export default function NeuralNetwork({ className }: NeuralNetworkProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef({ x: 0, y: 0, radius: 150 });
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      if (isClient) {
-        particlesRef.current = generateParticles(canvas);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
+    // Track mouse position
     const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.x = e.clientX;
-      mouseRef.current.y = e.clientY;
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    if (isClient) {
-      particlesRef.current = generateParticles(canvas);
+      const rect = canvas.getBoundingClientRect()
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      }
     }
 
-    let animationFrameId: number;
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const handleMouseLeave = () => {
+      mouseRef.current = null
+    }
 
-      particlesRef.current.forEach((particle) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
+    canvas.addEventListener("mousemove", handleMouseMove)
+    canvas.addEventListener("mouseleave", handleMouseLeave)
 
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+    // Create nodes
+    const nodes: Node[] = []
+    const nodeCount = 40
+    const interactiveNodeCount = 10 // Number of nodes that will follow the mouse
+    const connectionDistance = 150
+    const maxConnections = 5
 
-        particle.connections.forEach((connectedIndex) => {
-          if (connectedIndex < particlesRef.current.length) {
-            const connectedParticle = particlesRef.current[connectedIndex];
-            const dx = connectedParticle.x - particle.x;
-            const dy = connectedParticle.y - particle.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+    for (let i = 0; i < nodeCount; i++) {
+      nodes.push({
+        x: Math.random() * canvas.offsetWidth,
+        y: Math.random() * canvas.offsetHeight,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        radius: Math.random() * 2 + 1,
+        connections: [],
+        isInteractive: i < interactiveNodeCount, // First few nodes will be interactive
+      })
+    }
 
-            if (distance < 150) {
-              const opacity = 1 - distance / 150;
+    // Create connections between nodes
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = 0; j < nodes.length; j++) {
+        if (i !== j) {
+          const dx = nodes[i].x - nodes[j].x
+          const dy = nodes[i].y - nodes[j].y
+          const distance = Math.sqrt(dx * dx + dy * dy)
 
-              ctx.beginPath();
-              ctx.moveTo(particle.x, particle.y);
-              ctx.lineTo(connectedParticle.x, connectedParticle.y);
-              ctx.strokeStyle = `rgba(255, 140, 0, ${opacity * 0.2})`;
-              ctx.lineWidth = 0.5;
-              ctx.stroke();
-
-              if (Math.random() > 0.97) {
-                const pulsePosition = Math.random();
-                const pulseX = particle.x + dx * pulsePosition;
-                const pulseY = particle.y + dy * pulsePosition;
-
-                ctx.beginPath();
-                ctx.arc(pulseX, pulseY, 1, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 140, 0, ${opacity * 0.8})`;
-                ctx.fill();
-              }
-            }
-          }
-        });
-
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
-        ctx.fill();
-
-        const dx = mouseRef.current.x - particle.x;
-        const dy = mouseRef.current.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < mouseRef.current.radius) {
-          const force = (mouseRef.current.radius - distance) / mouseRef.current.radius;
-          particle.vx += dx * force * 0.01;
-          particle.vy += dy * force * 0.01;
-
-          const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
-          if (speed > 2) {
-            particle.vx = (particle.vx / speed) * 2;
-            particle.vy = (particle.vy / speed) * 2;
+          if (distance < connectionDistance && nodes[i].connections.length < maxConnections) {
+            nodes[i].connections.push(j)
           }
         }
-      });
+      }
+    }
 
-      animationFrameId = requestAnimationFrame(animate);
-    };
+    // Animation
+    let animationFrameId: number
+    let pulseTime = 0
 
-    animate();
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
+      pulseTime += 0.01
+
+      // Update and draw nodes
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i]
+
+        // If node is interactive and mouse is over canvas, move towards mouse
+        if (node.isInteractive && mouseRef.current) {
+          const dx = mouseRef.current.x - node.x
+          const dy = mouseRef.current.y - node.y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
+          // Only move if not too close to mouse
+          if (distance > 50) {
+            const angle = Math.atan2(dy, dx)
+            const strength = 0.2 * (1 - Math.min(1, distance / 300))
+            node.vx += Math.cos(angle) * strength
+            node.vy += Math.sin(angle) * strength
+          }
+
+          // Add some damping to prevent excessive speed
+          node.vx *= 0.98
+          node.vy *= 0.98
+        }
+
+        // Update position
+        node.x += node.vx
+        node.y += node.vy
+
+        // Bounce off edges
+        if (node.x < 0 || node.x > canvas.offsetWidth) node.vx *= -1
+        if (node.y < 0 || node.y > canvas.offsetHeight) node.vy *= -1
+
+        // Draw connections
+        for (const connectionIndex of node.connections) {
+          const connectedNode = nodes[connectionIndex]
+          const dx = connectedNode.x - node.x
+          const dy = connectedNode.y - node.y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
+          // Only draw if still in range
+          if (distance < connectionDistance * 1.5) {
+            const opacity = 1 - distance / (connectionDistance * 1.5)
+
+            // Create gradient for connection
+            const gradient = ctx.createLinearGradient(node.x, node.y, connectedNode.x, connectedNode.y)
+            gradient.addColorStop(0, `rgba(249, 115, 22, ${opacity * 0.5})`)
+            gradient.addColorStop(1, `rgba(249, 115, 22, ${opacity * 0.1})`)
+
+            ctx.beginPath()
+            ctx.strokeStyle = gradient
+            ctx.lineWidth = 0.5
+            ctx.moveTo(node.x, node.y)
+            ctx.lineTo(connectedNode.x, connectedNode.y)
+            ctx.stroke()
+
+            // Draw pulse effect along the connection
+            const pulsePosition = (Math.sin(pulseTime * 2 + i * 0.1) + 1) / 2
+            const pulseX = node.x + dx * pulsePosition
+            const pulseY = node.y + dy * pulsePosition
+
+            ctx.beginPath()
+            ctx.fillStyle = `rgba(249, 115, 22, ${opacity * 0.8})`
+            ctx.arc(pulseX, pulseY, 1.5, 0, Math.PI * 2)
+            ctx.fill()
+          }
+        }
+
+        // Draw node with different color if interactive
+        ctx.beginPath()
+        ctx.fillStyle = node.isInteractive
+          ? `rgba(249, 115, 22, ${0.5 + Math.sin(pulseTime + i) * 0.2})`
+          : `rgba(249, 115, 22, ${0.3 + Math.sin(pulseTime + i) * 0.2})`
+        ctx.arc(node.x, node.y, node.radius * (node.isInteractive ? 1.5 : 1), 0, Math.PI * 2)
+        ctx.fill()
+      }
+
+      animationFrameId = requestAnimationFrame(animate)
+    }
+
+    animate()
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [isClient]);
+      window.removeEventListener("resize", resizeCanvas)
+      canvas.removeEventListener("mousemove", handleMouseMove)
+      canvas.removeEventListener("mouseleave", handleMouseLeave)
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [])
 
-  return isClient ? (
-    <canvas ref={canvasRef} className={`${className} absolute inset-0 w-full h-full z-0 opacity-40`} />
-  ) : null;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ opacity: 0.8 }} />
 }
+

@@ -1,19 +1,19 @@
 import Footer from "./Components/Footer";
-import AnimatedLandingPage from "./Components/Hero";
+import Grid from "./Components/Grid";
 import Hero from "./Components/Hero";
-import Navbar from "./Components/navBar";
-import ICogLabsSection from "./Components/Sec1";
-import CoreValuesSection from "./Components/sec2";
+import Navbar from "./Components/navbar";
 import InsightsSection from "./Components/sec3";
+
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="bg-transparent">
+      {/* All Sections Inside Main Will Share the Same Background */}
       <Navbar />
-      <Hero/>
-      <CoreValuesSection/>
-      <InsightsSection/>
-      <Footer />
+      <Hero />
+      <Grid />
+      <InsightsSection />
+      <Footer/>
     </main>
   );
 }

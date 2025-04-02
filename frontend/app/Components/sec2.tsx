@@ -1,61 +1,28 @@
-"use client";
+import React, { useRef } from 'react';
+import FuturisticCards from './cards'; // Assuming FuturisticCards.js is in the same directory
 
-import React from "react"; // Add this line
-import { BentoGrid, BentoGridItem } from "../Components/ui/Bentogrid";
+const OurFocusAreas = () => {
+    const sectionsRef = useRef<{ technologies: HTMLElement | null }>({ technologies: null });
 
-export default function CoreValuesSection() {
-  return (
-    <section className="py-16 bg-gradient-to-b from-gray-900 to-black">
-      <div className="container mx-auto px-4">
-        <h3 className="text-4xl font-bold text-left text-orange-500 mb-8">Our Core Values</h3>
-        <p className="text-center text-gray-400 mb-12">
-          At iCog Labs, we advance AI research and development, driving innovation in robotics,
-          machine learning, and more, to transform industries and improve lives globally.
-        </p>
+    return (
+        <section ref={(el) => (sectionsRef.current.technologies = el)} className="relative py-24">
+            <div className="container mx-auto px-4 mb-12">
+                <div className="max-w-4xl mx-auto text-center mb-16">
+                    <div className="inline-block mb-4">
+                        <div className="flex items-center justify-center">
+                            <div className="h-[2px] w-8 bg-orange-500 mr-3"></div>
+                            <span className="text-orange-500 font-mono uppercase tracking-widest text-xs">Core Technologies</span>
+                            <div className="h-[2px] w-8 bg-orange-500 ml-3"></div>
+                        </div>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Focus Areas</h2>
+                    <p className="text-gray-400">Explore the revolutionary technologies powering our cognitive systems.</p>
+                </div>
+            </div>
 
-        <BentoGrid>
-          <BentoGridItem
-            title={<h3 className="text-xl font-semibold text-white">AI Solutions</h3>}
-            description={<p className="text-gray-400">Innovative AI solutions for real-world challenges.</p>}
-            className="border p-6 rounded bg-gray-800 text-white"
-          />
+            <FuturisticCards />
+        </section>
+    );
+};
 
-          <BentoGridItem
-            title={<h3 className="text-xl font-semibold text-white">Machine Learning</h3>}
-            description={<p className="text-gray-400">Cutting-edge machine learning applications.</p>}
-            className="border p-6 rounded bg-gray-800 text-white"
-          />
-
-          <BentoGridItem
-            title={<h3 className="text-xl font-semibold text-white">Blockchain</h3>}
-            description={<p className="text-gray-400">Secure and efficient blockchain solutions.</p>}
-            className="border p-6 rounded bg-gray-800 text-white"
-          />
-
-          <BentoGridItem
-            title={<h3 className="text-xl font-semibold text-white">Artificial General Intelligence</h3>}
-            description={<p className="text-gray-400">Pioneering advancements in AGI research.</p>}
-            className="border p-6 rounded bg-gray-800 text-white"
-          />
-
-          <BentoGridItem
-            title={<h3 className="text-xl font-semibold text-white">AI Ethics</h3>}
-            description={<p className="text-gray-400">Promoting ethical AI development and usage.</p>}
-            className="border p-6 rounded bg-gray-800 text-white"
-          />
-
-          <BentoGridItem
-            title={<h3 className="text-xl font-semibold text-white">Robotics</h3>}
-            description={
-              <p className="text-white">
-                Robotics integrates AI and engineering to create autonomous machines, revolutionizing industries
-                with precision and efficiency.
-              </p>
-            }
-            className="bg-orange-500 text-white p-6 rounded"
-          />
-        </BentoGrid>
-      </div>
-    </section>
-  );
-}
+export default OurFocusAreas;
