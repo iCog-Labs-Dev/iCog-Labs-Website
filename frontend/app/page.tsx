@@ -5,10 +5,11 @@ import Navbar from "./Components/navbar";
 import InsightsSection from "./Components/sec3";
 
 
+
 export default function HomePage() {
   return (
     <main className="bg-transparent">
-      {/* All Sections Inside Main Will Share the Same Background */}
+      
       <Navbar />
       <Hero />
       <Grid />

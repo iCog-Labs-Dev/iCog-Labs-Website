@@ -28,7 +28,7 @@ export const TextGenerateEffect = ({
   }, [animate]);
 
   const renderWords = () =>
-    words.split(" ").map((letter, index) => (
+    words.split(",").map((letter, index) => (
       <span key={index} className="opacity-0 inline-block">
         {letter}
       </span>

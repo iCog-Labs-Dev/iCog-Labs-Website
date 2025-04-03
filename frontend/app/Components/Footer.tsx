@@ -6,13 +6,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { FaInstagram, FaLinkedin, FaYoutube, FaGithub, FaTwitter, FaArrowRight } from "react-icons/fa"
 
-function Footer(){
-  return (
-    <></>
-  )
-}
-
-const Fofoter: React.FC = () => {
+const Footer: React.FC = () => {
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -36,7 +30,7 @@ const Fofoter: React.FC = () => {
   return (
     <footer className="relative overflow-hidden">
       {/* Join Our Team Section */}
-      <section className="py-24 bg-white relative">
+      <section className="py-24 bg-gray-900 text-white relative">
         <div className="container-custom">
           <motion.div
             className="max-w-3xl mx-auto text-center"
@@ -103,7 +97,7 @@ const Fofoter: React.FC = () => {
           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <path
               fill="#FE8E03"
-              d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,88.5,-1.5C87,13.3,81.3,26.6,73.6,39.2C65.9,51.7,56.1,63.5,43.4,70.8C30.7,78.1,15.3,80.9,0.4,80.3C-14.6,79.7,-29.2,75.7,-42.2,68.4C-55.2,61.1,-66.7,50.4,-74.4,37.2C-82.1,24,-86,8.3,-83.9,-6.2C-81.8,-20.7,-73.7,-34,-63.8,-44.9C-53.8,-55.8,-41.9,-64.3,-29.3,-72C-16.7,-79.7,-3.3,-86.7,9.2,-85.1C21.7,-83.5,30.5,-83.5,44.7,-76.4Z"
+              d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,88.5,-1.5C87,13.3,81.3,26.6,73.6,39.2C65.9,51.7,56.1,63.5,43.4,70.8C30.7,78.1,15.3,80.9,0.4,80.3C-14.6,79.7,-29.2,75.7,-42.2,68.4C-55.2,61.1,-66.7,50.4,-74.4,37.2C-82.1,24,-86,8.3,-83.9,-6.2C-81.8,-20.7,-73.7,-34,-63.8,-44.9C-53.8,-55.8,-41.9,-64.3,-29.3,-72.C-16.7,-79.7,-3.3,-86.7,9.2,-85.1C21.7,-83.5,30.5,-83.5,44.7,-76.4Z"
               transform="translate(100 100)"
             />
           </svg>
