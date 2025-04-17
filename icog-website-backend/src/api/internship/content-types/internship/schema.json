@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "internships",
+  "info": {
+    "singularName": "internship",
+    "pluralName": "internships",
+    "displayName": "Internship"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "CompanyName": {
+      "type": "string",
+      "required": false,
+      "default": "ICog Labs"
+    },
+    "Location": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "blocks"
+    },
+    "StartDate": {
+      "type": "date"
+    },
+    "EndDate": {
+      "type": "date"
+    },
+    "SkillsRequired": {
+      "type": "text"
+    },
+    "IsActive": {
+      "type": "boolean"
+    },
+    "Slug": {
+      "type": "uid",
+      "targetField": "Title"
+    }
+  }
+}
