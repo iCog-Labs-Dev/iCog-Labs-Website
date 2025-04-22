@@ -1,0 +1,35 @@
+
+@tailwind utilities;
+
+@theme inline {
+  --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #facc15, #f97316, #c2410c); /* yellow-400 to orange-700 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-button {
+  background: linear-gradient(to right, #f97316, #fb923c, #facc15); /* orange-500 to amber-400 */
+  color: white;
+  box-shadow: 0 0 15px rgba(249, 115, 22, 0.3);
+  transition: all 0.3s ease;
+}
+
+.gradient-button:hover {
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+  transform: scale(1.05);
+}
+
+.gradient-button:active {
+  transform: scale(0.95);
+}
+
