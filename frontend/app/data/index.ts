@@ -90,14 +90,41 @@ export const insights = [
   
 
 
-  export const gridItems: GridItemType[] = [
-    { id: 1, title: "Our Mission", description: "To advance artificial general intelligence research and create cognitive systems that augment human capabilities, solve complex problems, and drive innovation across industries." },
-    { id: 2, title: "Our Vision", description: "A world where intelligent systems work seamlessly with humans, enhancing our collective potential and addressing humanity's greatest challenges through advanced cognitive computing." },
-    { id: 3, title: "Advancing AI Research", img: "/VR.png" }, // Large right-side item
-    { id: 4, title: "Artificial Solutions (AI)", img: "https://media.istockphoto.com/id/1494104649/photo/ai-chatbot-artificial-intelligence-digital-concept.webp" },
-    { id: 5, title: "Blockchain Innovation", img: "https://images.unsplash.com/photo-1590285836796-f772deafabfc?w=400&auto=format&fit=crop&q=60" },
-    { id: 6, title: "Machine Learning", img: "https://images.unsplash.com/photo-1591453089816-0fbb971b454c?w=500&auto=format&fit=crop&q=60" },
-    { id: 7, title: "AGI", img: "https://media.istockphoto.com/id/2164088070/photo/agi-artificial-general-intelligence-artificial-intelligence-concept..." },
-    { id: 8, title: "Robotics", img: "https://plus.unsplash.com/premium_photo-1680402879257-48ffbbc6db1d?w=500&auto=format&fit=crop&q=60" },
-    { id: 9, title: "AI Ethics", img: "https://example.com/path-to-ethics-image" },
+  
+
+  // index.ts
+  import { Box, Lock, Search, Settings, Sparkles } from "lucide-react";
+
+  export const sec2Cards = [
+    {
+      id: 1,
+      title: "Do things the right way",
+      description: "Running out of copy so I'll write anything.",
+      iconName: "Box",
+    },
+    {
+      id: 2,
+      title: "The best AI code editor ever.",
+      description: "Yes, it's true. I'm not even kidding. Ask my mom if you don't believe me.",
+      iconName: "Settings",
+    },
+    {
+      id: 3,
+      title: "You should buy Aceternity UI Pro",
+      description: "It's the best money you'll ever spend",
+      iconName: "Lock",
+    },
+    {
+      id: 4,
+      title: "This card is also built by Cursor",
+      description: "I'm not even kidding. Ask my mom if you don't believe me.",
+      iconName: "Sparkles",
+    },
+    {
+      id: 5,
+      title: "Coming soon on Aceternity UI",
+      description: "I'm writing the code as I record this, no shit.",
+      iconName: "Search",
+    },
   ];
+  
