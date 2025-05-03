@@ -25,7 +25,7 @@ const DUMMY_PARTNERS = [
     websiteUrl: "https://www.amazon.com",
   },
   {
-    name: "Facebook",
+    name: "Meta",
     logoUrl: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
     websiteUrl: "https://www.facebook.com",
   },
@@ -69,16 +69,22 @@ const DUMMY_PARTNERS = [
 const PartnersSection = () => {
   const partnerItems = DUMMY_PARTNERS.map((partner) => ({
     quote: (
-      <div className="flex justify-center items-center h-32 p-4">
-        <Link href={partner.websiteUrl} target="_blank" rel="noopener noreferrer">
-          <img
-            src={partner.logoUrl}
-            alt={`${partner.name} Logo`}
-            className="max-h-20 w-auto object-contain hover:scale-105 transition-transform"
-            loading="lazy"
-          />
-        </Link>
-      </div>
+      <Link 
+        href={partner.websiteUrl} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="flex flex-col items-center justify-center h-full"
+      >
+        <img
+          src={partner.logoUrl}
+          alt={`${partner.name} Logo`}
+          className="h-12 w-auto object-contain mb-2"
+          loading="lazy"
+        />
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mt-2">
+          {partner.name}
+        </span>
+      </Link>
     ),
     name: partner.name,
     title: "Partner",
@@ -88,10 +94,10 @@ const PartnersSection = () => {
     <section className="py-16 bg-gray-100 dark:bg-gray-800">
       <div className="container mx-auto px-4 text-center mb-8">
         <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-100">
-          Our Esteemed Partners
+          Our Partners
         </h2>
         <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          We are proud to collaborate with industry leaders and innovators.
+          Trusted by leading organizations worldwide
         </p>
       </div>
       

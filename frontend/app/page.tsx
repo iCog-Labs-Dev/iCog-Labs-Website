@@ -1,6 +1,7 @@
 import ArticleShowcase from "./components/articles";
 import Card from "./components/cards";
 import InternshipSection from "./components/careers";
+import Footer from "./components/footer";
 import Hero from "./components/Hero";
 import Navbar from "./components/NavBar";
 import NewsCoverage from "./components/news";
@@ -9,8 +10,6 @@ import Sec1 from "./components/sec1";
 import Sec2 from "./components/sec2";
 import TestimonialsSection from "./components/testimonials";
 import { sec1Data } from "./data";
-
-
 
 export default function HomePage() {
   return (
@@ -25,10 +24,10 @@ export default function HomePage() {
       <Sec2 />
       <PartnersSection />
       <TestimonialsSection />
-      <NewsCoverage/>
-      <ArticleShowcase/>
-      <InternshipSection/>
-
+      <NewsCoverage />
+      <ArticleShowcase />
+      <InternshipSection />
+      <Footer/>
     </main>
   );
 }
