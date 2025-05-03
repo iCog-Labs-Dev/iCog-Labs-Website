@@ -92,38 +92,37 @@ export const insights = [
 
   
 
-  // index.ts
-  import { Box, Lock, Search, Settings, Sparkles } from "lucide-react";
+  
 
   export const sec2Cards = [
     {
       id: 1,
-      title: "Do things the right way",
-      description: "Running out of copy so I'll write anything.",
-      iconName: "Box",
-    },
-    {
-      id: 2,
-      title: "The best AI code editor ever.",
-      description: "Yes, it's true. I'm not even kidding. Ask my mom if you don't believe me.",
-      iconName: "Settings",
-    },
-    {
-      id: 3,
-      title: "You should buy Aceternity UI Pro",
-      description: "It's the best money you'll ever spend",
-      iconName: "Lock",
-    },
-    {
-      id: 4,
-      title: "This card is also built by Cursor",
-      description: "I'm not even kidding. Ask my mom if you don't believe me.",
+      title: "Artificial General Intelligence",
+      description: "Pioneering research and development in AGI systems that demonstrate human-like cognitive abilities across diverse domains.",
       iconName: "Sparkles",
     },
     {
+      id: 2,
+      title: "Blockchain Integration",
+      description: "Secure decentralized solutions combining blockchain technology with AI for transparent, tamper-proof systems.",
+      iconName: "Lock",
+    },
+    {
+      id: 3,
+      title: "Neural Adaptive Coding",
+      description: "Advanced neural networks that dynamically adapt their architecture based on real-time data inputs and environmental changes.",
+      iconName: "Settings",
+    },
+    {
+      id: 4,
+      title: "Genetic Algorithm Optimization",
+      description: "Evolutionary computing techniques that optimize complex systems through biologically-inspired processes.",
+      iconName: "Box",
+    },
+    {
       id: 5,
-      title: "Coming soon on Aceternity UI",
-      description: "I'm writing the code as I record this, no shit.",
+      title: "Deep Learning Architectures",
+      description: "Cutting-edge deep neural network designs for computer vision, natural language processing, and predictive analytics.",
       iconName: "Search",
     },
   ];

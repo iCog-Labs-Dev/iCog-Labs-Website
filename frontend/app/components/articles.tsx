@@ -11,7 +11,7 @@ const COMPANY_ARTICLES = [
     category: "Technology",
     date: "May 15, 2023",
     readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1677442135136-760c813a743d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    image: "https://media.istockphoto.com/id/2166193783/photo/data-analytics-team-meeting-at-night.webp?a=1&b=1&s=612x612&w=0&k=20&c=8rcZn4Dbs7qAE4jn8C2_NrED5R_XWJCJMWMFCJYYvpU=",
     link: "#"
   },
   {
@@ -46,121 +46,176 @@ const COMPANY_ARTICLES = [
   }
 ];
 
- function ArticleShowcase() {
+function GearIcon({ className, size = 24 }) {
   return (
-    <section className="py-20 bg-white dark:bg-gray-950">
-      <div className="container mx-auto px-4">
-        {/* Header with slanted effect */}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+      <path d="M18.727 14.727a1.5 1.5 0 0 0 .3 1.655l.055.054a1.816 1.816 0 0 1 0 2.573 1.818 1.818 0 0 1-2.573 0l-.055-.055a1.5 1.5 0 0 0-1.654-.3 1.5 1.5 0 0 0-.91 1.373v.155a1.818 1.818 0 1 1-3.636 0V20.1a1.5 1.5 0 0 0-.981-1.373 1.5 1.5 0 0 0-1.655.3l-.054.055a1.818 1.818 0 0 1-3.106-1.287 1.818 1.818 0 0 1 .533-1.286l.054-.055a1.5 1.5 0 0 0 .3-1.654 1.5 1.5 0 0 0-1.372-.91h-.155a1.818 1.818 0 1 1 0-3.636H3.9a1.5 1.5 0 0 0 1.373-.981 1.5 1.5 0 0 0-.3-1.655l-.055-.054A1.818 1.818 0 1 1 7.491 4.99l.055.054a1.5 1.5 0 0 0 1.655.3h.073a1.5 1.5 0 0 0 .909-1.372v-.155a1.818 1.818 0 1 1 3.636 0V3.9a1.499 1.499 0 0 0 .91 1.373 1.5 1.5 0 0 0 1.654-.3l.054-.055a1.817 1.817 0 0 1 2.573 0 1.819 1.819 0 0 1 0 2.573l-.055.054a1.5 1.5 0 0 0-.3 1.655v.073a1.5 1.5 0 0 0 1.373.909h.155a1.818 1.818 0 0 1 0 3.636H20.1a1.499 1.499 0 0 0-1.373.91Z" />
+    </svg>
+  );
+}
+
+function ArticleShowcase() {
+  return (
+    <section className="py-20 bg-gray-950 relative overflow-hidden">
+      {/* Background elements */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.05 }}
+        className="absolute top-0 left-0 w-full h-full pointer-events-none"
+      >
+        <div className="absolute top-1/4 -left-20 w-60 h-60 rounded-full bg-orange-500/10 filter blur-[100px]"></div>
+        <div className="absolute bottom-1/3 -right-20 w-80 h-80 rounded-full bg-orange-500/10 filter blur-[120px]"></div>
+      </motion.div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="relative mb-16"
+          className="mb-16 text-center"
         >
-          <div className="absolute -left-4 -top-4 w-24 h-24 bg-indigo-500/10 -z-10 -rotate-12 rounded-xl"></div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Our <span className="text-indigo-600 dark:text-indigo-400">Insights</span>
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl">
-            Thought leadership and innovative perspectives from our team
-          </p>
+          <div className="flex items-center justify-center mb-6">
+            <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
+            <span className="text-orange-500 font-mono uppercase tracking-widest text-sm">
+              Thought Leadership
+            </span>
+            <div className="h-[3px] w-10 bg-orange-500 ml-3"></div>
+          </div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
+          >
+            Our Latest Insights
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-lg text-gray-400 max-w-3xl mx-auto"
+          >
+            Cutting-edge perspectives and innovative thinking from our team
+          </motion.p>
         </motion.div>
 
-        {/* Asymmetric grid layout */}
+        {/* Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Featured article (left) */}
+          {/* Featured Article (Left) */}
           <motion.article
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="lg:col-span-3 group"
+            className="lg:col-span-3 group relative"
           >
-            <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-6">
+            <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-800">
               <img 
                 src={COMPANY_ARTICLES[0].image} 
                 alt={COMPANY_ARTICLES[0].title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-              <div className="absolute bottom-6 left-6">
-                <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-indigo-600 text-white mb-2">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 right-6">
+                <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-orange-600 text-white mb-3 shadow-md">
                   {COMPANY_ARTICLES[0].category}
                 </span>
-                <h3 className="text-2xl font-bold text-white">
+                <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
                   {COMPANY_ARTICLES[0].title}
                 </h3>
               </div>
             </div>
-            <p className="text-gray-600 dark:text-gray-300 mb-4 text-lg">
+            <p className="text-gray-300 mb-6 text-lg leading-relaxed">
               {COMPANY_ARTICLES[0].excerpt}
             </p>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-sm text-gray-400">
                 {COMPANY_ARTICLES[0].date} · {COMPANY_ARTICLES[0].readTime}
               </span>
               <a 
                 href={COMPANY_ARTICLES[0].link} 
-                className="flex items-center text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
+                className="flex items-center text-orange-400 font-medium hover:text-orange-300 transition-colors group-hover:underline"
               >
                 Read article
-                <ArrowUpRightIcon className="ml-2 h-4 w-4" />
+                <ArrowUpRightIcon className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>
             </div>
           </motion.article>
 
-          {/* Article list (right) */}
+          {/* Article List (Right) */}
           <div className="lg:col-span-2 space-y-8">
-            {COMPANY_ARTICLES.slice(1).map((article) => (
+            {COMPANY_ARTICLES.slice(1).map((article, index) => (
               <motion.article
                 key={article.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.1 * index }}
                 viewport={{ once: true }}
                 className="group"
               >
-                <div className="flex gap-6">
-                  <div className="flex-shrink-0 relative overflow-hidden rounded-xl w-32 h-32">
+                <div className="flex gap-6 hover:bg-gray-900/50 p-3 rounded-xl transition-colors border border-gray-800">
+                  <div className="flex-shrink-0 relative overflow-hidden rounded-xl w-32 h-32 shadow-md">
                     <img 
                       src={article.image} 
                       alt={article.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                   </div>
-                  <div>
-                    <span className="inline-block px-2 py-1 text-xs font-medium rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300 mb-2">
+                  <div className="py-1">
+                    <span className="inline-block px-2.5 py-1 text-xs font-medium rounded-full bg-orange-900/50 text-orange-300 mb-2 shadow-sm">
                       {article.category}
                     </span>
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    <h3 className="font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
                       {article.title}
                     </h3>
-                    <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 space-x-3">
+                    <div className="flex items-center text-xs text-gray-400 space-x-3">
                       <span>{article.date}</span>
                       <span>•</span>
                       <span>{article.readTime}</span>
                     </div>
+                    <a 
+                      href={article.link}
+                      className="mt-2 inline-flex items-center text-sm text-orange-400 hover:underline transition-colors"
+                    >
+                      Read more
+                      <ArrowUpRightIcon className="ml-1 h-3 w-3" />
+                    </a>
                   </div>
                 </div>
               </motion.article>
             ))}
 
-            {/* View all button */}
+            {/* View All Button */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
               viewport={{ once: true }}
-              className="pt-4"
+              className="pt-4 text-center"
             >
               <a 
                 href="#" 
-                className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center px-5 py-2.5 border border-gray-700 rounded-full text-gray-300 hover:bg-gray-800 transition-colors hover:shadow-sm hover:border-orange-500"
               >
                 View all articles
-                <ArrowUpRightIcon className="ml-2 h-4 w-4" />
+                <ArrowUpRightIcon className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
             </motion.div>
           </div>
@@ -170,4 +225,4 @@ const COMPANY_ARTICLES = [
   );
 }
 
-export default ArticleShowcase
+export default ArticleShowcase;

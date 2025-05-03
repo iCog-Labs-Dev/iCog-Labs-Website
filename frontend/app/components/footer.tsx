@@ -3,155 +3,96 @@
 import { FaInstagram, FaLinkedin, FaYoutube, FaGithub, FaTwitter } from "react-icons/fa";
 import { motion } from "framer-motion";
 
+function GearIcon({ className, size = 24 }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+      <path d="M18.727 14.727a1.5 1.5 0 0 0 .3 1.655l.055.054a1.816 1.816 0 0 1 0 2.573 1.818 1.818 0 0 1-2.573 0l-.055-.055a1.5 1.5 0 0 0-1.654-.3 1.5 1.5 0 0 0-.91 1.373v.155a1.818 1.818 0 1 1-3.636 0V20.1a1.5 1.5 0 0 0-.981-1.373 1.5 1.5 0 0 0-1.655.3l-.054.055a1.818 1.818 0 0 1-3.106-1.287 1.818 1.818 0 0 1 .533-1.286l.054-.055a1.5 1.5 0 0 0 .3-1.654 1.5 1.5 0 0 0-1.372-.91h-.155a1.818 1.818 0 1 1 0-3.636H3.9a1.5 1.5 0 0 0 1.373-.981 1.5 1.5 0 0 0-.3-1.655l-.055-.054A1.818 1.818 0 1 1 7.491 4.99l.055.054a1.5 1.5 0 0 0 1.655.3h.073a1.5 1.5 0 0 0 .909-1.372v-.155a1.818 1.818 0 1 1 3.636 0V3.9a1.499 1.499 0 0 0 .91 1.373 1.5 1.5 0 0 0 1.654-.3l.054-.055a1.817 1.817 0 0 1 2.573 0 1.819 1.819 0 0 1 0 2.573l-.055.054a1.5 1.5 0 0 0-.3 1.655v.073a1.5 1.5 0 0 0 1.373.909h.155a1.818 1.818 0 0 1 0 3.636H20.1a1.499 1.499 0 0 0-1.373.91Z" />
+    </svg>
+  );
+}
+
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden">
-      {/* Join Our Team Section */}
-      <div className="bg-white dark:bg-gray-950 py-20 border-b border-gray-100 dark:border-gray-800">
-        <div className="container mx-auto px-4 text-center">
+    <footer className="relative overflow-hidden bg-gray-950 pt-16 pb-8">
+      {/* Gear background element */}
+      <div className="absolute bottom-0 right-0 opacity-10">
+        <GearIcon 
+          className="text-orange-500 animate-spin-slow" 
+          size={250}
+        />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-col md:flex-row items-start justify-between">
+          {/* Left-aligned logo section - made larger */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="max-w-2xl mx-auto"
+            className="mb-8 md:mb-0 md:w-1/3"
           >
-            <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-6">
-              Join Our Team
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Explore exciting career and internship opportunities with us.
+            <img 
+              src="/iCogLogo.png" 
+              alt="iCog Labs Logo" 
+              className="h-16 mb-4" // Increased logo size
+            />
+            <p className="text-gray-400 text-lg max-w-xs"> {/* Increased text size */}
+              Engineering the Future of <span className="text-orange-400 font-medium">Intelligence</span>
             </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:shadow-indigo-500/30 transition-all"
-            >
-              See Open Roles
-            </motion.button>
           </motion.div>
-        </div>
-      </div>
 
-      {/* Main Footer */}
-      <div className="bg-gray-50 dark:bg-gray-900 pt-16 pb-8 relative">
-        <div className="container mx-auto px-4">
-          {/* Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-            {/* Logo Column */}
+          {/* Right-aligned content */}
+          <div className="md:w-2/3 flex flex-col">
+            {/* Social links */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="flex flex-col items-start"
+              className="mb-8"
             >
-              <img 
-                src="/iCogLogo.png" 
-                alt="Company Logo" 
-                className="h-10 mb-4"
-              />
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Engineering the Future of <span className="text-indigo-600 dark:text-indigo-400 font-medium">Intelligence</span>
-              </p>
-              <div className="flex space-x-4">
+              <h3 className="text-gray-300 font-medium mb-4 text-lg">Connect With Us</h3>
+              <div className="flex space-x-6">
                 {[FaTwitter, FaInstagram, FaLinkedin, FaYoutube, FaGithub].map((Icon, i) => (
-                  <a 
+                  <motion.a 
                     key={i}
                     href="#" 
-                    className="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                    className="text-gray-500 hover:text-orange-400 transition-colors"
+                    whileHover={{ y: -2 }}
                   >
-                    <Icon className="w-5 h-5" />
-                  </a>
+                    <Icon className="w-6 h-6" /> {/* Increased icon size */}
+                  </motion.a>
                 ))}
               </div>
             </motion.div>
 
-            {/* Links Columns */}
-            {['Company', 'Resources', 'Legal'].map((title, i) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                viewport={{ once: true }}
-                className="flex flex-col"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                  {title}
-                </h3>
-                <ul className="space-y-3">
-                  {Array.from({ length: 4 }).map((_, j) => (
-                    <li key={j}>
-                      <a 
-                        href="#" 
-                        className="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                      >
-                        {title} Link {j + 1}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-
-            {/* Newsletter Column */}
+            {/* Copyright */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
-              className="flex flex-col"
+              className="pt-6 border-t border-gray-800"
             >
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Stay Updated
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Subscribe to our newsletter for the latest updates.
+              <p className="text-gray-500 text-sm text-left">
+                © {new Date().getFullYear()} iCog Labs. All rights reserved.
               </p>
-              <form className="flex flex-col space-y-3">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-                <button
-                  type="submit"
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition-colors"
-                >
-                  Subscribe
-                </button>
-              </form>
             </motion.div>
           </div>
-
-          {/* Bottom Bar */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="pt-8 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center"
-          >
-            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} Your Company. All rights reserved.
-            </p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 text-sm transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 text-sm transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 text-sm transition-colors">
-                Cookies
-              </a>
-            </div>
-          </motion.div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full bg-indigo-500/10 blur-3xl"></div>
       </div>
     </footer>
   );

@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Boxes } from "./UI/background-boxes";
-import { ArrowDown } from "lucide-react"; // Make sure this is installed
+import { ArrowDown } from "lucide-react"; 
 
 const scrollToContent = () => {
   document.getElementById("content")?.scrollIntoView({ behavior: "smooth" });
@@ -11,12 +11,13 @@ const scrollToContent = () => {
 
 const Hero = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center bg-slate-900 overflow-hidden">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black/70">
+    
       {/* Animated Background Boxes */}
       <Boxes />
 
       {/* Optional soft radial mask effect */}
-      <div className="absolute inset-0 w-full h-full bg-slate-900 z-10 [mask-image:radial-gradient(transparent,black)] pointer-events-none" />
+      <div className="absolute inset-0 w-full h-full z-10 [mask-image:radial-gradient(transparent,black)] pointer-events-none" />
 
       {/* Foreground Content */}
       <div className="relative z-30 text-center px-4 max-w-4xl mx-auto">
@@ -59,21 +60,20 @@ const Hero = () => {
           Engineering the Future of Intelligence
         </motion.div>
 
-        {/* 🔘 Buttons */}
+        {/* Buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-         <motion.button
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  className="gradient-button px-6 py-3 rounded-md text-lg"
->
-  Explore
-</motion.button>
-
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="gradient-button px-6 py-3 rounded-md text-lg"
+          >
+            Explore
+          </motion.button>
 
           <motion.button
             whileHover={{
@@ -88,7 +88,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* 🔽 Scroll Arrow */}
+      {/* Scroll Arrow */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

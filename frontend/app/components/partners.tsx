@@ -2,6 +2,7 @@
 
 import { InfiniteMovingCards } from "./UI/infinite-moving-cards";
 import Link from "next/link";
+import { BackgroundGradient } from "./UI/background-gradient";
 
 const DUMMY_PARTNERS = [
   {
@@ -69,37 +70,47 @@ const DUMMY_PARTNERS = [
 const PartnersSection = () => {
   const partnerItems = DUMMY_PARTNERS.map((partner) => ({
     quote: (
-      <Link 
-        href={partner.websiteUrl} 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="flex flex-col items-center justify-center h-full"
-      >
-        <img
-          src={partner.logoUrl}
-          alt={`${partner.name} Logo`}
-          className="h-12 w-auto object-contain mb-2"
-          loading="lazy"
-        />
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mt-2">
-          {partner.name}
-        </span>
-      </Link>
+      <BackgroundGradient className="rounded-[22px] p-4 bg-white dark:bg-zinc-900 h-full">
+        <Link 
+          href={partner.websiteUrl} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex flex-col items-center justify-center h-full p-4"
+        >
+          <img
+            src={partner.logoUrl}
+            alt={`${partner.name} Logo`}
+            className="h-12 w-auto object-contain mb-2"
+            loading="lazy"
+          />
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mt-2">
+            {partner.name}
+          </span>
+        </Link>
+      </BackgroundGradient>
     ),
     name: partner.name,
     title: "Partner",
   }));
 
   return (
-    <section className="py-16 bg-gray-100 dark:bg-gray-800">
-      <div className="container mx-auto px-4 text-center mb-8">
-        <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-100">
-          Our Partners
-        </h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Trusted by leading organizations worldwide
-        </p>
+    <section className="py-16 bg-black/70">
+      {/* Title Section - Matching Sec2 style */}
+      <div className="flex items-center justify-center mb-4">
+        <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
+        <span className="text-orange-500 font-mono uppercase tracking-widest text-sm text-center">
+          Trusted Collaborations
+        </span>
+        <div className="h-[3px] w-10 bg-orange-500 ml-3"></div>
       </div>
+
+      <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-gray-100 mb-4">
+        Our Partners
+      </h2>
+      
+      <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
+        We're proud to collaborate with industry leaders and innovators who share our vision for advancing AI technology.
+      </p>
       
       <div className="relative">
         <InfiniteMovingCards 

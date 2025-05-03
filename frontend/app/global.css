@@ -1,4 +1,5 @@
-
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
 @theme inline {
@@ -64,3 +65,25 @@
   animation: marquee 20s linear infinite;
   animation-delay: 10s;
 }
+
+@layer components {
+  .gradient-border-left {
+    position: relative;
+  }
+  
+  .gradient-border-left::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    background: linear-gradient(to bottom, #facc15, #f97316, #c2410c);
+    border-radius: 8px 0 0 8px;
+  }
+
+  .gradient-border-content {
+    padding-left: 1.5rem; /* 24px - adjust as needed */
+  }
+}
+
