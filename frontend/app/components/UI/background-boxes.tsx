@@ -6,15 +6,12 @@ import { cn } from "../../../lib/utils";
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   const rows = new Array(150).fill(1);
   const cols = new Array(100).fill(1);
-  let colors = [
-    "#facc15", // yellow-400
-    "#f97316", // orange-500
-    "#ea580c", // orange-600
-    "#c2410c", // orange-700
-    "#fb923c", // orange-400
-    "#fdba74", // orange-300
-    "#fcd34d", // yellow-300
-    "#f59e0b", // amber-500
+  const colors = [
+    "rgba(250, 204, 21, 0.7)",  // semi-transparent versions
+    "rgba(249, 115, 22, 0.7)",
+    "rgba(234, 88, 12, 0.7)",
+    "rgba(251, 146, 60, 0.7)",
+    "rgba(253, 186, 116, 0.5)", // lighter opacity
   ];
   
   const getRandomColor = () => {
@@ -30,7 +27,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
         "absolute -top-1/4 left-1/4 z-0 flex h-full w-full -translate-x-1/2 -translate-y-1/2 p-4",
         className,
       )}
-      {...rest}
+      
     >
       {rows.map((_, i) => (
         <motion.div

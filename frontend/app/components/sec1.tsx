@@ -23,7 +23,7 @@ const Sec1 = () => {
       {/* Title Section */}
       <div className="flex items-center justify-center mb-4">
         <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
-        <span className="text-orange-500 font-mono uppercase tracking-widest text-sm text-center">
+        <span className="text-orange-500 font-michroma uppercase tracking-widest text-sm text-center">
           Pioneering the Future of Cognitive Intelligence
         </span>
         <div className="h-[3px] w-10 bg-orange-500 ml-3"></div>

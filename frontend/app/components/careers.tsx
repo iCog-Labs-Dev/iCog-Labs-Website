@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRightIcon } from "./icons/arrow-right";
+import { SectionHeader } from "./sectionHeader";
 function GearIcon({ className, size = 24 }) {
   return (
     <svg
@@ -45,13 +46,10 @@ export default function InternshipSection() {
             viewport={{ once: true }}
             className="lg:w-1/2"
           >
-            <div className="flex items-center mb-4">
-              <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
-              <span className="text-orange-500 font-mono uppercase tracking-widest text-sm">
-                Career Pathways
-              </span>
-              <div className="h-[3px] w-10 bg-orange-500 ml-3"></div>
-            </div>
+            <SectionHeader 
+  title="Career Pathways" 
+  mb="4"
+/>
             <h2 className="text-4xl font-bold text-white mb-6">
               Launch Your Career <br />
               Through Our <span className="text-orange-400">Internship Program</span>

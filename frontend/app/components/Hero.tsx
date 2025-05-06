@@ -3,7 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Boxes } from "./UI/background-boxes";
-import { ArrowDown } from "lucide-react"; 
+import { ArrowDown } from "lucide-react";
+import { SectionHeader } from "./sectionHeader";
 
 const scrollToContent = () => {
   document.getElementById("content")?.scrollIntoView({ behavior: "smooth" });
@@ -12,12 +13,8 @@ const scrollToContent = () => {
 const Hero = () => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black/70">
-    
       {/* Animated Background Boxes */}
       <Boxes />
-
-      {/* Optional soft radial mask effect */}
-      <div className="absolute inset-0 w-full h-full z-10 [mask-image:radial-gradient(transparent,black)] pointer-events-none" />
 
       {/* Foreground Content */}
       <div className="relative z-30 text-center px-4 max-w-4xl mx-auto">
@@ -28,13 +25,12 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-6 inline-block"
         >
-          <div className="flex items-center justify-center mb-2">
-            <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
-            <span className="text-orange-500 font-mono uppercase tracking-widest text-sm">
-              High Cognitive Systems
-            </span>
-            <div className="h-[3px] w-10 bg-orange-500 ml-3"></div>
-          </div>
+          <SectionHeader
+            title="High congitive systems"
+            center
+            mb="4"
+            className="text-center" 
+          />
 
           {/* Heading */}
           <motion.div
@@ -87,28 +83,6 @@ const Hero = () => {
           </motion.button>
         </motion.div>
       </div>
-
-      {/* Scroll Arrow */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.4 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer z-30"
-        onClick={scrollToContent}
-        whileHover={{ scale: 1.1 }}
-      >
-        <span className="text-orange-500 text-sm mb-2">Discover More</span>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            repeatType: "loop",
-          }}
-        >
-          <ArrowDown className="h-5 w-5 text-orange-500" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };

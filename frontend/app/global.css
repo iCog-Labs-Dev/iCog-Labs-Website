@@ -12,6 +12,13 @@
   }
 }
 
+
+
+
+.font-michroma {
+  font-family: var(--font-michroma), sans-serif;
+}
+
 .gradient-text {
   background: linear-gradient(to right, #facc15, #f97316, #c2410c); /* yellow-400 to orange-700 */
   -webkit-background-clip: text;
@@ -19,9 +26,8 @@
 }
 
 .gradient-button {
-  background: linear-gradient(to right, #f97316, #fb923c, #facc15); /* orange-500 to amber-400 */
+  background: linear-gradient(to bottom, #f97316, #fb923c, #facc15); /* orange-500 to amber-400 */
   color: white;
-  box-shadow: 0 0 15px rgba(249, 115, 22, 0.3);
   transition: all 0.3s ease;
 }
 

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRightIcon } from "./icons/arrow-up-right"; // Custom icon
+import { SectionHeader } from "./sectionHeader";
 
 const COMPANY_ARTICLES = [
   {
@@ -88,13 +89,11 @@ function ArticleShowcase() {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <div className="flex items-center justify-center mb-6">
-            <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
-            <span className="text-orange-500 font-mono uppercase tracking-widest text-sm">
-              Thought Leadership
-            </span>
-            <div className="h-[3px] w-10 bg-orange-500 ml-3"></div>
-          </div>
+          <SectionHeader 
+  title="Thought Leadership" 
+  center 
+  mb="6"
+/>
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

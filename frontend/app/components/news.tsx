@@ -11,8 +11,9 @@ const NEWS_COVERAGE = [
     logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/TechCrunch_logo.svg/1200px-TechCrunch_logo.svg.png",
     date: "April 2023",
     title: "Named Top Startup to Watch",
-    excerpt: "Recognized for innovative approach in annual tech disruptors list",
-    link: "#"
+    excerpt:
+      "Recognized for innovative approach in annual tech disruptors list",
+    link: "#",
   },
   {
     id: 2,
@@ -21,7 +22,7 @@ const NEWS_COVERAGE = [
     date: "March 2023",
     title: "30 Under 30 Feature",
     excerpt: "Our product lead honored in prestigious young innovators list",
-    link: "#"
+    link: "#",
   },
   {
     id: 3,
@@ -30,7 +31,7 @@ const NEWS_COVERAGE = [
     date: "February 2023",
     title: "Innovation Deep Dive",
     excerpt: "Technical breakdown of our groundbreaking methodology",
-    link: "#"
+    link: "#",
   },
   {
     id: 4,
@@ -39,20 +40,20 @@ const NEWS_COVERAGE = [
     date: "January 2023",
     title: "Product Launch Coverage",
     excerpt: "Detailed look at our platform's game-changing features",
-    link: "#"
-  }
+    link: "#",
+  },
 ];
 
 export default function NewsCoverage() {
   return (
     <section className="py-20 bg-black/70 relative overflow-hidden">
       {/* Background decorative elements */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 0.1 }}
         className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-indigo-500 filter blur-[100px] dark:blur-[120px]"
       />
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 0.1 }}
         className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-purple-500 filter blur-[80px] dark:blur-[100px]"
@@ -60,7 +61,7 @@ export default function NewsCoverage() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Modern Header Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -69,7 +70,7 @@ export default function NewsCoverage() {
         >
           <div className="flex items-center justify-center mb-6">
             <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
-            <span className="text-orange-500 font-mono uppercase tracking-widest text-sm">
+            <span className="text-orange-500 font-michroma uppercase tracking-widest text-sm">
               Media Coverage
             </span>
             <div className="h-[3px] w-10 bg-orange-500 ml-3"></div>
@@ -83,7 +84,7 @@ export default function NewsCoverage() {
           >
             Featured In Top Publications
           </motion.h2>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -118,7 +119,7 @@ export default function NewsCoverage() {
                       {item.date}
                     </span>
                   </div>
-                  
+
                   {/* Content */}
                   <div className="p-6 flex-grow">
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
@@ -128,10 +129,10 @@ export default function NewsCoverage() {
                       {item.excerpt}
                     </p>
                   </div>
-                  
+
                   {/* Footer */}
                   <div className="px-6 pb-6">
-                    <a 
+                    <a
                       href={item.link}
                       className="inline-flex items-center text-indigo-600 dark:text-indigo-400 font-medium text-sm group-hover:text-indigo-800 dark:group-hover:text-indigo-300 transition-colors"
                     >
@@ -154,7 +155,7 @@ export default function NewsCoverage() {
           className="flex justify-center mt-16"
         >
           <div className="flex items-center gap-4">
-            <motion.div 
+            <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               transition={{ duration: 0.8 }}
@@ -163,7 +164,7 @@ export default function NewsCoverage() {
             <span className="text-sm text-gray-500 dark:text-gray-400">
               As featured in
             </span>
-            <motion.div 
+            <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               transition={{ duration: 0.8 }}

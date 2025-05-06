@@ -4,6 +4,7 @@ import { Box, Lock, Search, Settings, Sparkles } from "lucide-react";
 import { sec2Cards } from "../data/index";
 import { GlowingEffect } from "./UI/glowing-effect";
 import { motion } from "framer-motion";
+import { SectionHeader } from "./sectionHeader";
 
 const iconMap = {
   Box: <Box className="h-4 w-4 text-black dark:text-neutral-400" />,
@@ -17,21 +18,17 @@ export default function Sec2() {
   return (
     <section className="py-16 px-4 md:px-16 lg:px-32 bg-black/70 text-white">
       {/* Title Section - Matching Sec1 style */}
-      <motion.div 
+      <motion.div
         className="flex items-center justify-center mb-4"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
       >
-        <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
-        <span className="text-orange-500 font-mono uppercase tracking-widest text-sm text-center">
-          Specialized Knowledge & Skills
-        </span>
-        <div className="h-[3px] w-10 bg-orange-500 ml-3"></div>
+        <SectionHeader title="Specialized Knowledge & Skills" center mb="4" />
       </motion.div>
 
-      <motion.h2 
+      <motion.h2
         className="text-4xl font-bold text-center mb-4"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -40,17 +37,19 @@ export default function Sec2() {
       >
         Our Expertise
       </motion.h2>
-      
-      <motion.p 
+
+      <motion.p
         className="text-center text-gray-400 mb-12 max-w-3xl mx-auto"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: true }}
       >
-        With a decade of experience at the forefront of AI innovation, our team combines deep technical knowledge with practical implementation skills to deliver cutting-edge solutions across multiple domains.
+        With a decade of experience at the forefront of AI innovation, our team
+        combines deep technical knowledge with practical implementation skills
+        to deliver cutting-edge solutions across multiple domains.
       </motion.p>
-      
+
       <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-3 lg:gap-4 xl:max-h-[34rem] xl:grid-rows-2">
         {/* Card 1 - Top Left */}
         <GridItem
@@ -109,9 +108,15 @@ interface GridItemProps {
   delay?: number;
 }
 
-const GridItem = ({ area, icon, title, description, delay = 0 }: GridItemProps) => {
+const GridItem = ({
+  area,
+  icon,
+  title,
+  description,
+  delay = 0,
+}: GridItemProps) => {
   return (
-    <motion.li 
+    <motion.li
       className={`min-h-[14rem] list-none ${area}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}

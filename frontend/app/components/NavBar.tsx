@@ -4,15 +4,15 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { FloatingNav } from "./UI/floating-navbar"; // Assuming FloatingNav is in FloatingNav.tsx
+import { FloatingNav } from "./UI/floating-navbar"; 
 
 const Navbar: React.FC = () => {
-  const [activeMenu, setActiveMenu] = useState<string | null>(null); // For active hover
+  const [activeMenu, setActiveMenu] = useState<string | null>(null); 
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      // The scroll effect logic can be kept, but we remove the background color change on scroll
+      
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -21,9 +21,8 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/focus-areas", label: "Focus Areas" },
     { href: "/careers", label: "Careers" },
-    { href: "/articles", label: "Articles" }, // Changed "News" to "Articles"
+    { href: "/articles", label: "Articles" }, 
   ];
 
   return (
@@ -36,7 +35,7 @@ const Navbar: React.FC = () => {
           <motion.img
             src="/iCogLogo.png"
             alt="iCog Labs Logo"
-            className="w-16 h-16 md:w-20 md:h-20 ml-2 mt-2" // Added margin-left and margin-top
+            className="w-22 h-22 md:w-20 md:h-20 ml-3 mt-2" // Added margin-left and margin-top
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
