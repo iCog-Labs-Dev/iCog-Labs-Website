@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
           <motion.img
             src="/iCogLogo.png"
             alt="iCog Labs Logo"
-            className="w-22 h-22 md:w-20 md:h-20 ml-3 mt-2" // Added margin-left and margin-top
+            className="w-20 h-20 md:w-20 md:h-20 ml-3 mt-2" // Added margin-left and margin-top
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}

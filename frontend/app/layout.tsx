@@ -1,12 +1,19 @@
 import './global.css';
 import { ReactNode } from 'react';
-import { Michroma } from 'next/font/google';
+import { Michroma, Comic_Neue } from 'next/font/google';
+
 
 // Define the Michroma font
 const michroma = Michroma({
   weight: '400', // Michroma only has regular weight
   subsets: ['latin'],
   variable: '--font-michroma',
+  display: 'swap',
+});
+const comic = Comic_Neue({
+  weight: '400', // Michroma only has regular weight
+  subsets: ['latin'],
+  variable: '--font-comic',
   display: 'swap',
 });
 
@@ -17,7 +24,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`bg-black text-white m-0 p-0 ${michroma.variable}`}>
+    <html lang="en" className={` text-white m-0 p-0 ${michroma.variable} ${comic.variable}`}>
       <body className="m-0 p-0 box-border overflow-x-hidden font-sans">
         {children}
       </body>

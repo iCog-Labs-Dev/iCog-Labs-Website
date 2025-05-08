@@ -46,17 +46,17 @@ const NEWS_COVERAGE = [
 
 export default function NewsCoverage() {
   return (
-    <section className="py-20 bg-black/70 relative overflow-hidden">
+    <section className="py-20 bg-gray-950 relative overflow-hidden">
       {/* Background decorative elements */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 0.1 }}
-        className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-indigo-500 filter blur-[100px] dark:blur-[120px]"
+        className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-orange-400 filter blur-[100px] dark:blur-[120px]"
       />
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 0.1 }}
-        className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-purple-500 filter blur-[80px] dark:blur-[100px]"
+        className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-orange-400 filter blur-[80px] dark:blur-[100px]"
       />
 
       <div className="container mx-auto px-4 relative z-10">
@@ -106,8 +106,8 @@ export default function NewsCoverage() {
               viewport={{ once: true }}
               className="group"
             >
-              <BackgroundGradient className="rounded-2xl h-full p-[2px]">
-                <div className="h-full flex flex-col bg-white dark:bg-gray-900 rounded-2xl overflow-hidden transition-all duration-300 group-hover:shadow-xl">
+              <BackgroundGradient className="rounded-2xl h-full p-[1px]">
+                <div className="h-full flex flex-col bg-white dark:bg-gray-900 rounded-2xl overflow-hidden transition-all duration-300 group-hover:shadow-sm">
                   {/* Logo header */}
                   <div className="p-6 pb-0 flex items-center justify-between">
                     <img
@@ -122,7 +122,7 @@ export default function NewsCoverage() {
 
                   {/* Content */}
                   <div className="p-6 flex-grow">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-orange-600 dark:group-hover:text-indigo-400 transition-colors">
                       {item.title}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-300 mb-6">
@@ -134,7 +134,7 @@ export default function NewsCoverage() {
                   <div className="px-6 pb-6">
                     <a
                       href={item.link}
-                      className="inline-flex items-center text-indigo-600 dark:text-indigo-400 font-medium text-sm group-hover:text-indigo-800 dark:group-hover:text-indigo-300 transition-colors"
+                      className="inline-flex items-center text-orange-600 dark:text-indigo-400 font-medium text-sm group-hover:text-orange-400 dark:group-hover:text-indigo-300 transition-colors"
                     >
                       Read full coverage
                       <ArrowUpRightIcon className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

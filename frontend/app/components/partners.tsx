@@ -106,7 +106,7 @@ const PartnersSection = () => {
   }));
 
   return (
-    <section className="py-16 bg-black/70">
+    <section className="py-16 bg-gray-950 ">
       {/* Title Section - Matching Sec2 style */}
       <div className="flex items-center justify-center mb-4">
         <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
@@ -134,8 +134,8 @@ const PartnersSection = () => {
           className="mx-auto"
         />
         {/* Gradient overlays */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-gray-100 dark:from-gray-800 to-transparent z-30"></div>
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-gray-100 dark:from-gray-800 to-transparent z-30"></div>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-gray-850 dark:from-gray-950 to-transparent z-30"></div>
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-gray-850 dark:from-gray-950 to-transparent z-30"></div>
       </div>
     </section>
   );

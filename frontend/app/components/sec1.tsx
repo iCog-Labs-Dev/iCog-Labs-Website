@@ -19,7 +19,7 @@ const Sec1 = () => {
   const [missionCard, visionCard, researchCard] = sec1Data;
 
   return (
-    <div className="relative z-30 bg-black/70 max-w-8xl mx-auto px-4 lg:px-8 py-6">
+    <div className="relative z-30 bg-gray-950 max-w-8xl mx-auto px-4 lg:px-8 py-6">
       {/* Title Section */}
       <div className="flex items-center justify-center mb-4">
         <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
@@ -43,9 +43,9 @@ const Sec1 = () => {
         {/* Left Column - Regular Cards (1/3 width) */}
         <div className="flex flex-col w-1/3 gap-8 h-full">
           {/* Mission Card */}
-          <div className="gradient-border-left bg-zinc-900 rounded-2xl p-8 flex-1">
+          <div className="gradient-border-left bg-transparent rounded-2xl p-8 flex-1">
             <div className="gradient-border-content">
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="text-2xl font-bold font-comic text-white mb-4">
                 {missionCard.title}
               </h3>
               <p className="text-gray-400">{missionCard.description}</p>
@@ -53,9 +53,9 @@ const Sec1 = () => {
           </div>
 
           {/* Vision Card */}
-          <div className="gradient-border-left bg-zinc-900 rounded-2xl p-8 flex-1">
+          <div className="gradient-border-left bg-transparent rounded-2xl p-8 flex-1 ">
             <div className="gradient-border-content">
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="text-2xl font-bold font-comic  text-white mb-4">
                 {visionCard.title}
               </h3>
               <p className="text-gray-400">{visionCard.description}</p>
@@ -67,12 +67,12 @@ const Sec1 = () => {
         <div className="w-2/3 h-full">
           <Custom3DCard>
             <BackgroundGradient
-              className="h-full rounded-[22px] overflow-hidden p-0.5 bg-transparent"
+              className="h-full rounded-[30px] overflow-hidden p-0.5 bg-transparent"
               containerClassName="h-full"
               animate={true}
               duration={20}
             >
-              <div className="relative h-full w-full rounded-[20px] overflow-hidden bg-zinc-900">
+              <div className="relative h-full w-full rounded-[20px] overflow-hidden bg-gray-950">
                 {/* Full-size Image with 3D effect */}
                 <CardItem translateZ="80" rotateX={5} className="w-full h-full">
                   <img
@@ -101,11 +101,11 @@ const Sec1 = () => {
       {/* Layout for Mobile/Tablet */}
       <div className="flex flex-col gap-8 md:hidden">
         {sec1Data.map((card) => (
-          <div key={card.id} className="rounded-[22px] h-full bg-gray-800">
+          <div key={card.id} className="rounded-[22px] h-full bg-zinc-950">
             {card.img && (
               <img
                 src={card.img || "/placeholder.svg"}
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-contain"
                 alt={card.title}
               />
             )}

@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Boxes } from "./UI/background-boxes";
@@ -12,11 +11,18 @@ const scrollToContent = () => {
 
 const Hero = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black/70">
-      {/* Animated Background Boxes */}
-      <Boxes />
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gray-950">
+      {/* Enhanced Background Layers */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-950 to-black z-0">
+        
+      </div>
 
-      {/* Foreground Content */}
+      
+      <Boxes className="opacity-30 hover:opacity-50 transition-opacity duration-300" />
+
+      
+
+      {/* Foreground Content  */}
       <div className="relative z-30 text-center px-4 max-w-4xl mx-auto">
         {/* Label */}
         <motion.div
@@ -26,7 +32,7 @@ const Hero = () => {
           className="mb-6 inline-block"
         >
           <SectionHeader
-            title="High congitive systems"
+            title="High cognitive systems"
             center
             mb="4"
             className="text-center" 
@@ -40,7 +46,7 @@ const Hero = () => {
             className="mb-6"
           >
             <h1 className="text-6xl md:text-8xl font-bold tracking-tight">
-              <span className="gradient-text">iCog</span>
+              <span className="gradient-text font-comic-">iCog</span>
               <span className="text-white"> Labs</span>
             </h1>
           </motion.div>
@@ -82,6 +88,8 @@ const Hero = () => {
             Learn More
           </motion.button>
         </motion.div>
+
+        
       </div>
     </section>
   );

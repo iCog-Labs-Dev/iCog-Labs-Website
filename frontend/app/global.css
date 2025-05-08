@@ -18,6 +18,9 @@
 .font-michroma {
   font-family: var(--font-michroma), sans-serif;
 }
+.font-comic {
+  font-family: var(--font-comic), sans-serif;
+}
 
 .gradient-text {
   background: linear-gradient(to right, #facc15, #f97316, #c2410c); /* yellow-400 to orange-700 */
@@ -89,7 +92,7 @@
   }
 
   .gradient-border-content {
-    padding-left: 1.5rem; /* 24px - adjust as needed */
+    padding-left: 1.4rem; /* 24px - adjust as needed */
   }
 }
 

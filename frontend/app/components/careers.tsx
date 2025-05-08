@@ -25,7 +25,7 @@ function GearIcon({ className, size = 24 }) {
 }
 export default function InternshipSection() {
   return (
-    <section className="py-20 bg-gray-950 relative overflow-hidden">
+    <section className="py-20 relative bg-gray-950 overflow-hidden">
       <div className="absolute top-10 left-8 opacity-10 ">
         <GearIcon 
           className="text-orange-500 animate-spin-slow" 

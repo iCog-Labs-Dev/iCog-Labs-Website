@@ -91,7 +91,7 @@ function TestimonialsSection() {
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
             <div className="h-[3px] w-10 bg-orange-500 mr-3"></div>
-            <span className="text-orange-500 font-mono uppercase tracking-widest text-sm">
+            <span className="text-orange-500 font-michroma uppercase tracking-widest text-sm">
               Client Experiences
             </span>
             <div className="h-[3px] w-10 bg-orange-500 ml-3"></div>
@@ -132,7 +132,7 @@ function TestimonialsSection() {
                 className="relative h-full"
               >
                 <BackgroundGradient 
-                  className="rounded-3xl p-[2px] h-full"
+                  className="rounded-2xl p-[1px] h-full"
                   gradientClassName="from-orange-500 via-amber-500 to-yellow-500"
                 >
                   <div
@@ -155,7 +155,7 @@ function TestimonialsSection() {
                         />
                         {activeIndex === index && (
                           <motion.div
-                            className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-green-500 border-2 border-gray-800"
+                            className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-orange-400 border-2 border-gray-800"
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ type: "spring" }}

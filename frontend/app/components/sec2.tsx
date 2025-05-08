@@ -16,7 +16,7 @@ const iconMap = {
 
 export default function Sec2() {
   return (
-    <section className="py-16 px-4 md:px-16 lg:px-32 bg-black/70 text-white">
+    <section className="py-16 px-4 md:px-16 lg:px-31 bg-gray-950 text-white">
       {/* Title Section - Matching Sec1 style */}
       <motion.div
         className="flex items-center justify-center mb-4"
