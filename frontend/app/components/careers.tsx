@@ -104,7 +104,7 @@ export default function InternshipSection() {
             </div>
             
             <Link 
-              href="/internship-application"
+              href="Internships"
               className="inline-flex items-center justify-center px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white font-medium rounded-lg transition-colors duration-300 group"
             >
               Apply for Internship

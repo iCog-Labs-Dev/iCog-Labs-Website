@@ -14,7 +14,7 @@ import { sec1Data } from "./data";
 export default function HomePage() {
   return (
     <main className="bg-transparent">
-      <Navbar />
+     
       <Hero />
       <Sec1>
         <Card title={sec1Data[0].title} description={sec1Data[0].description} />
@@ -27,7 +27,7 @@ export default function HomePage() {
       <NewsCoverage />
       <ArticleShowcase />
       <InternshipSection />
-      <Footer/>
+     
     </main>
   );
 }

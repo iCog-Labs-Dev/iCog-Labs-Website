@@ -210,7 +210,7 @@ function ArticleShowcase() {
               className="pt-4 text-center"
             >
               <a 
-                href="#" 
+                href="Articles" 
                 className="inline-flex items-center px-5 py-2.5 border border-gray-700 rounded-full text-gray-300 hover:bg-gray-800 transition-colors hover:shadow-sm hover:border-orange-500"
               >
                 View all articles
