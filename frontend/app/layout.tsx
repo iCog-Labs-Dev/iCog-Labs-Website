@@ -1,25 +1,39 @@
-import './global.css';
-import { ReactNode } from 'react';
-import Footer from "./Components/Footer";
-import Home from "./Components/Home";
-import Navbar from "./Components/navBar";
+import "./global.css";
+import { ReactNode } from "react";
+import { Michroma, Comic_Neue } from "next/font/google";
+import Navbar from "./components/NavBar";
+import Footer from "./components/footer";
 
+// Define the Michroma font
+const michroma = Michroma({
+  weight: "400", // Michroma only has regular weight
+  subsets: ["latin"],
+  variable: "--font-michroma",
+  display: "swap",
+});
+const comic = Comic_Neue({
+  weight: "400", // Michroma only has regular weight
+  subsets: ["latin"],
+  variable: "--font-comic",
+  display: "swap",
+});
 
 export const metadata = {
-  title: 'iCogLabs',
-  description: 'AGI Building company',
+  title: "iCogLabs",
+  description: "AGI Building company",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <Navbar />{ 
-      children}
-      <Footer/>
-      
-        
-       </body>
+    <html
+      lang="en"
+      className={` text-white m-0 p-0 ${michroma.variable} ${comic.variable}`}
+    >
+      <body className="m-0 p-0 box-border overflow-x-hidden font-sans">
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
