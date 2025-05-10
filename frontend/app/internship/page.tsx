@@ -503,7 +503,13 @@ const InternshipForm = () => {
                             <p className="text-xs text-gray-500">PDF, DOC, or DOCX up to 5MB</p>
                           </div>
                         </div>
-                        {watch("CV") && <p className="mt-2 text-sm text-green-500">File selected: {watch("CV").name}</p>}
+                        {(() => {
+                          const cv = watch("CV");
+                          if (cv && typeof cv === "object" && "name" in cv && cv.name) {
+                            return <p className="mt-2 text-sm text-green-500">File selected: {cv.name}</p>;
+                          }
+                          return null;
+                        })()}
                         {errors.CV && <p className="mt-1 text-sm text-red-500">{String(errors.CV.message)}</p>}
                       </div>
                     </div>
