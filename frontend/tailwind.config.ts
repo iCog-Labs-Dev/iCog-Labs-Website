@@ -1,6 +1,12 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: ["class"],
+import type { Config } from "tailwindcss";
+
+const colors = require("tailwindcss/colors");
+
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
+export default {
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -146,8 +152,21 @@ module.exports = {
         "gradient-shift": "gradient-shift 8s ease infinite",
         "pulse-slow": "pulse-slow 3s ease-in-out infinite",
       },
+
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [addVariablesForColors],
 
+  
+} satisfies Config;
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+ 
+  addBase({
+    ":root": newVars,
+  });
+}

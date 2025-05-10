@@ -1,36 +1,38 @@
-import "./global.css"
-import type { ReactNode } from "react"
-import { Inter, Poppins } from "next/font/google"
-import FuturisticFooter from "./Components/FuturisticFooter"
-import Navbar from "./Components/navBar"
+import "./global.css";
+import { ReactNode } from "react";
+import { Michroma, Comic_Neue } from "next/font/google";
+import Navbar from "./components/NavBar";
+import Footer from "./components/footer";
 
-const inter = Inter({
+// Define the Michroma font
+const michroma = Michroma({
+  weight: "400", // Michroma only has regular weight
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-michroma",
   display: "swap",
-})
-
-const poppins = Poppins({
+});
+const comic = Comic_Neue({
+  weight: "400", // Michroma only has regular weight
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
+  variable: "--font-comic",
   display: "swap",
-})
+});
 
 export const metadata = {
-  title: "iCogLabs - Engineering the Future of Intelligence",
-  description:
-    "iCogLabs is a pioneering AI research and development company building cutting-edge solutions in artificial intelligence, machine learning, robotics, and blockchain.",
-    generator: 'v0.dev'
-}
+  title: "iCogLabs",
+  description: "AGI Building company",
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <body className="min-h-screen flex flex-col">
+    <html
+      lang="en"
+      className={` text-white m-0 p-0 ${michroma.variable} ${comic.variable}`}
+    >
+      <body className="m-0 p-0 box-border overflow-x-hidden font-sans">
         <Navbar />
-        <main className="flex-grow">{children}</main>
-        <FuturisticFooter />
+        {children}
+        <Footer />
       </body>
     </html>
   )
