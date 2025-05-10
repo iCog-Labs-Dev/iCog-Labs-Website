@@ -44,6 +44,16 @@
         "content": {
             "type": "richtext",
             "required": true
+        },
+        "image": {
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ],
+            "type": "media",
+            "multiple": false
         }
     }
 }
