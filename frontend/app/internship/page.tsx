@@ -1,28 +1,41 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { useForm } from "react-hook-form"
-import { AiOutlineUpload, AiOutlineCheck } from "react-icons/ai"
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa"
-import Link from "next/link"
-import NeuralNetwork from "../Components/NeuralNetwork"
-import BrainStructure from "../Components/BrainStructure"
-import LogoGears from "../Components/LogoGears"
-import FuturisticFooter from "../Components/FuturisticFooter"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { AiOutlineUpload, AiOutlineCheck } from "react-icons/ai";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
+import NeuralNetwork from "../Components/NeuralNetwork";
+import BrainStructure from "../Components/BrainStructure";
+import LogoGears from "../Components/LogoGears";
+import axios from "axios";
 
 const fadeIn = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.6 } },
-}
+};
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
-  },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
+interface FormData {
+  ApplicantFullName?: string;
+  ApplicantEmail?: string;
+  ApplicantPhone?: string;
+  DateOfBirth?: string;
+  Gender?: string;
+  CurrentLocation?: string;
+  EducationLevel?: string;
+  GitHubAccount?: string;
+  MindplaxAccount?: string;
+  HasTakenOnlineCourses?: string;
+  PromisedHours?: string;
+  OpportunityReason?: string;
+  CV?: File;
+  internship?: string;
 }
 
 const InternshipForm = () => {
@@ -33,64 +46,122 @@ const InternshipForm = () => {
     formState: { errors, isSubmitting },
     setValue,
     trigger,
-  } = useForm()
+  } = useForm<FormData>();
 
-  const [currentStep, setCurrentStep] = useState(1)
-  const [formData, setFormData] = useState({})
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState<FormData>({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const totalSteps = 3
-
-  interface FormData {
-    fullName?: string
-    email?: string
-    phoneNumber?: string
-    dateOfBirth?: string
-    gender?: string
-    currentLocation?: string
-    educationLevel?: string
-    fieldOfStudy?: string
-    githubAccount?: string
-    mindplaxAccount?: string
-    onlineCourses?: string
-    coursesList?: string
-    areasOfInterest?: string[]
-    commitmentHours?: number
-    explanation?: string
-    cv?: File
-  }
+  const totalSteps = 2;
 
   const onSubmit = async (data: FormData) => {
     if (currentStep < totalSteps) {
-      setFormData({ ...formData, ...data })
-      setCurrentStep(currentStep + 1)
-      window.scrollTo(0, 0)
-      return
+      setFormData({ ...formData, ...data });
+      setCurrentStep(currentStep + 1);
+      window.scrollTo(0, 0);
+      return;
     }
-
-    // Final submission
+  
+    const combinedData = { ...formData, ...data };
+    const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337";
+    const strapiToken = "79ca78b2257cc9a815e991d78771ca639e189941e57bc734df95f262f33f04228e0b272ec1a7c12589ac3bc1ecef5bc25c6e70641c6518747b03a4eaa942c628e7f08fc0184cf104f2cc361f4fa7d50d9483810d42fb6fba63c0015d0cc8ba84eeb4c3d5130705904cdefe1fdabf337b5f8037cf5639335b9562e009e1b4c4ef";
+  
     try {
-      console.log("Form submitted:", { ...formData, ...data })
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setIsSubmitted(true)
-    } catch (error) {
-      console.error("Error submitting form:", error)
-      alert("An error occurred while submitting the form.")
+      // Validate required fields
+      if (!combinedData.ApplicantFullName || !combinedData.ApplicantEmail) {
+        alert("Please fill in all required fields (Full Name and Email).");
+        return;
+      }
+  
+      // Validate CV is a File object
+      if (!(combinedData.CV instanceof File)) {
+        alert("Please upload a valid CV file (PDF, DOC, or DOCX).");
+        return;
+      }
+  
+      // Step 1: Upload CV to /api/upload
+      const formDataForFile = new FormData();
+      formDataForFile.append("files", combinedData.CV, combinedData.CV.name);
+  
+      // Log FormData for debugging
+      console.log("Uploading CV to /api/upload...");
+      for (const [key, value] of formDataForFile.entries()) {
+        console.log(`FormData Entry - ${key}:`, value);
+      }
+  
+      const fileResponse = await axios.post(`${strapiApiUrl}/api/upload`, formDataForFile, {
+        headers: {
+          Authorization: `Bearer ${strapiToken}`,
+        },
+      });
+  
+      if (fileResponse.status !== 200 && fileResponse.status !== 201) {
+        throw new Error(fileResponse.data.message || "Failed to upload CV");
+      }
+  
+      // Extract file ID from response
+      const fileId = fileResponse.data[0].id;
+      console.log("Uploaded CV File ID:", fileId);
+  
+      // Step 2: Submit application data with CV file ID
+      const strapiPayload = {
+        data: {
+          ApplicantFullName: combinedData.ApplicantFullName,
+          ApplicantEmail: combinedData.ApplicantEmail,
+          ApplicantPhone: combinedData.ApplicantPhone || "",
+          DateOfBirth: combinedData.DateOfBirth || "",
+          GitHubAccount: combinedData.GitHubAccount || "",
+          MindplaxAccount: combinedData.MindplaxAccount || "",
+          PromisedHours: combinedData.PromisedHours || "",
+          CurrentLocation: combinedData.CurrentLocation || "",
+          Gender: combinedData.Gender || "",
+          HasTakenOnlineCourses: combinedData.HasTakenOnlineCourses === "yes",
+          EducationLevel: combinedData.EducationLevel || "",
+          OpportunityReason: combinedData.OpportunityReason || "",
+          CurrentStatus: "Submitted",
+          CV: fileId, // Reference the uploaded file ID
+          ...(combinedData.internship &&
+            !isNaN(parseInt(combinedData.internship, 10)) && {
+              internship: parseInt(combinedData.internship, 10),
+            }),
+        },
+      };
+  
+      // Log payload for debugging
+      console.log("Strapi Payload:", JSON.stringify(strapiPayload, null, 2));
+  
+      const dataResponse = await axios.post(`${strapiApiUrl}/api/internship-applications`, strapiPayload, {
+        headers: {
+          Authorization: `Bearer ${strapiToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (dataResponse.status !== 200 && dataResponse.status !== 201) {
+        throw new Error(dataResponse.data.message || "Failed to submit application data");
+      }
+  
+      console.log("Application Created:", dataResponse.data);
+      setIsSubmitted(true);
+    } catch (error: any) {
+      console.error("Error submitting form:", {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+      });
+      alert(`Error: ${error.response?.data?.error?.message || "An error occurred. Please try again."}`);
     }
-  }
-
+  };
   const goToPreviousStep = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1)
-      window.scrollTo(0, 0)
+      setCurrentStep(currentStep - 1);
+      window.scrollTo(0, 0);
     }
-  }
+  };
 
   if (isSubmitted) {
     return (
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center bg-black">
-        {/* Background Elements */}
         <div className="fixed inset-0 z-0 opacity-30">
           <NeuralNetwork />
         </div>
@@ -126,13 +197,12 @@ const InternshipForm = () => {
           </motion.h2>
 
           <motion.p
-            className="text-gray-300 mb-8"
+            // className="text-gray-300 mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            Thank you for applying to our internship program. We've received your application and will review it
-            shortly. You'll receive a confirmation email with further details.
+            Thank you for applying to ou   r internship program. We've received your application and will review it shortly.
           </motion.p>
 
           <Link href="/careers">
@@ -148,17 +218,15 @@ const InternshipForm = () => {
             </motion.button>
           </Link>
 
-          {/* Decorative elements */}
           <div className="absolute -z-10 -top-10 -right-10 w-40 h-40 rounded-full bg-orange-500/5 blur-3xl" />
           <div className="absolute -z-10 -bottom-10 -left-10 w-40 h-40 rounded-full bg-red-500/5 blur-3xl" />
         </motion.div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="pt-24 pb-16 bg-black min-h-screen">
-      {/* Background Elements */}
       <div className="fixed inset-0 z-0 opacity-30">
         <NeuralNetwork />
       </div>
@@ -172,34 +240,24 @@ const InternshipForm = () => {
       <div className="container-custom">
         <motion.div className="max-w-4xl mx-auto relative z-10" initial="hidden" animate="visible" variants={fadeIn}>
           <div className="mb-8">
-            <Link
-              href="/careers"
-              className="text-brand-orange hover:text-brand-red transition-colors inline-flex items-center"
-            >
+            <Link href="/careers" className="text-brand-orange hover:text-brand-red transition-colors inline-flex items-center">
               <FaArrowLeft className="mr-2" />
               <span>Back to Careers</span>
             </Link>
           </div>
 
-          <motion.div
-            className="bg-gray-900 rounded-xl shadow-md overflow-hidden border border-gray-800"
-            variants={fadeInUp}
-          >
-            {/* Header */}
+          <motion.div className="bg-gray-900 rounded-xl shadow-md overflow-hidden border border-gray-800" variants={fadeInUp}>
             <div className="gradient-bg p-6 md:p-8">
               <h1 className="text-2xl md:text-3xl font-heading font-bold text-white">Internship Program Application</h1>
               <p className="text-white/80 mt-2">Join our team and work on cutting-edge AI projects</p>
             </div>
 
-            {/* Progress Bar */}
             <div className="px-6 md:px-8 pt-6">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-gray-400">
                   Step {currentStep} of {totalSteps}
                 </span>
-                <span className="text-sm font-medium text-gray-400">
-                  {Math.round((currentStep / totalSteps) * 100)}% Complete
-                </span>
+                <span className="text-sm font-medium text-gray-400">{Math.round((currentStep / totalSteps) * 100)}% Complete</span>
               </div>
               <div className="w-full bg-gray-800 rounded-full h-2.5">
                 <motion.div
@@ -207,11 +265,10 @@ const InternshipForm = () => {
                   initial={{ width: `${((currentStep - 1) / totalSteps) * 100}%` }}
                   animate={{ width: `${(currentStep / totalSteps) * 100}%` }}
                   transition={{ duration: 0.5 }}
-                ></motion.div>
+                />
               </div>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
               <AnimatePresence mode="wait">
                 {currentStep === 1 && (
@@ -230,12 +287,14 @@ const InternshipForm = () => {
                         <label className="block text-sm font-medium text-gray-300 mb-1">Full Name *</label>
                         <input
                           type="text"
-                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${errors.fullName ? "border-red-500" : "border-gray-700"} focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
+                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${
+                            errors.ApplicantFullName ? "border-red-500" : "border-gray-700"
+                          } focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
                           placeholder="Enter your full name"
-                          {...register("fullName", { required: "Full name is required" })}
+                          {...register("ApplicantFullName", { required: "Full name is required" })}
                         />
-                        {errors.fullName && (
-                          <p className="mt-1 text-sm text-red-500">{String(errors.fullName.message)}</p>
+                        {errors.ApplicantFullName && (
+                          <p className="mt-1 text-sm text-red-500">{String(errors.ApplicantFullName.message)}</p>
                         )}
                       </div>
 
@@ -243,9 +302,11 @@ const InternshipForm = () => {
                         <label className="block text-sm font-medium text-gray-300 mb-1">Email Address *</label>
                         <input
                           type="email"
-                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${errors.email ? "border-red-500" : "border-gray-700"} focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
+                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${
+                            errors.ApplicantEmail ? "border-red-500" : "border-gray-700"
+                          } focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
                           placeholder="Enter your email address"
-                          {...register("email", {
+                          {...register("ApplicantEmail", {
                             required: "Email is required",
                             pattern: {
                               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -253,43 +314,39 @@ const InternshipForm = () => {
                             },
                           })}
                         />
-                        {errors.email && <p className="mt-1 text-sm text-red-500">{String(errors.email.message)}</p>}
+                        {errors.ApplicantEmail && (
+                          <p className="mt-1 text-sm text-red-500">{String(errors.ApplicantEmail.message)}</p>
+                        )}
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Phone Number *</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-1">Phone Number</label>
                         <input
                           type="tel"
-                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${errors.phoneNumber ? "border-red-500" : "border-gray-700"} focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
+                          className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-orange text-white"
                           placeholder="Enter your phone number"
-                          {...register("phoneNumber", { required: "Phone number is required" })}
+                          {...register("ApplicantPhone")}
                         />
-                        {errors.phoneNumber && (
-                          <p className="mt-1 text-sm text-red-500">{String(errors.phoneNumber.message)}</p>
-                        )}
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Date of Birth *</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-1">Date of Birth</label>
                         <input
                           type="date"
-                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${errors.dateOfBirth ? "border-red-500" : "border-gray-700"} focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
-                          {...register("dateOfBirth", { required: "Date of birth is required" })}
+                          className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-orange text-white"
+                          {...register("DateOfBirth")}
                         />
-                        {errors.dateOfBirth && (
-                          <p className="mt-1 text-sm text-red-500">{String(errors.dateOfBirth.message)}</p>
-                        )}
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Gender *</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-1">Gender</label>
                         <div className="flex gap-6 mt-2">
                           <label className="flex items-center">
                             <input
                               type="radio"
                               className="w-4 h-4 text-brand-orange bg-gray-800 border-gray-700"
-                              value="male"
-                              {...register("gender", { required: "Please select your gender" })}
+                              value="Male"
+                              {...register("Gender")}
                             />
                             <span className="ml-2 text-gray-300">Male</span>
                           </label>
@@ -297,38 +354,25 @@ const InternshipForm = () => {
                             <input
                               type="radio"
                               className="w-4 h-4 text-brand-orange bg-gray-800 border-gray-700"
-                              value="female"
-                              {...register("gender", { required: "Please select your gender" })}
+                              value="Female"
+                              {...register("Gender")}
                             />
                             <span className="ml-2 text-gray-300">Female</span>
                           </label>
-                          <label className="flex items-center">
-                            <input
-                              type="radio"
-                              className="w-4 h-4 text-brand-orange bg-gray-800 border-gray-700"
-                              value="other"
-                              {...register("gender", { required: "Please select your gender" })}
-                            />
-                            <span className="ml-2 text-gray-300">Other</span>
-                          </label>
                         </div>
-                        {errors.gender && <p className="mt-1 text-sm text-red-500">{String(errors.gender.message)}</p>}
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Current Location *</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-1">Current Location</label>
                         <select
-                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${errors.currentLocation ? "border-red-500" : "border-gray-700"} focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
-                          {...register("currentLocation", { required: "Please select your current location" })}
+                          className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-orange text-white"
+                          {...register("CurrentLocation")}
                         >
                           <option value="">Select your location</option>
                           <option value="addis-ababa">Addis Ababa</option>
                           <option value="other-ethiopia">Other (Ethiopia)</option>
                           <option value="international">International</option>
                         </select>
-                        {errors.currentLocation && (
-                          <p className="mt-1 text-sm text-red-500">{String(errors.currentLocation.message)}</p>
-                        )}
                       </div>
                     </div>
                   </motion.div>
@@ -343,48 +387,33 @@ const InternshipForm = () => {
                     transition={{ duration: 0.3 }}
                     className="space-y-6"
                   >
-                    <h2 className="text-xl font-semibold mb-4 text-white">Education & Experience</h2>
+                    <h2 className="text-xl font-semibold mb-4 text-white">Education & Additional Information</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Education Level *</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-1">Education Level</label>
                         <select
-                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${errors.educationLevel ? "border-red-500" : "border-gray-700"} focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
-                          {...register("educationLevel", { required: "Education level is required" })}
+                          className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-orange text-white"
+                          {...register("EducationLevel")}
                         >
                           <option value="">Select education level</option>
-                          <option value="highschool">High School</option>
-                          <option value="bachelor">Bachelor's Degree</option>
-                          <option value="master">Master's Degree</option>
-                          <option value="phd">PhD</option>
-                          <option value="self-taught">Self-taught</option>
+                          <option value="High School">High School</option>
+                          <option value="Some College">Some College</option>
+                          <option value="Bachelor's Degree">Bachelor's Degree</option>
+                          <option value="Master's Degree">Master's Degree</option>
+                          <option value="PhD">PhD</option>
+                          <option value="Other">Other</option>
                         </select>
-                        {errors.educationLevel && (
-                          <p className="mt-1 text-sm text-red-500">{String(errors.educationLevel.message)}</p>
-                        )}
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Field of Study</label>
+                        <label className="block text-sm font-medium text-gray-300 mb-1">GitHub Account</label>
                         <input
                           type="text"
                           className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-orange text-white"
-                          placeholder="E.g., Computer Science, AI"
-                          {...register("fieldOfStudy")}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">GitHub Account *</label>
-                        <input
-                          type="text"
-                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${errors.githubAccount ? "border-red-500" : "border-gray-700"} focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
                           placeholder="Your GitHub username"
-                          {...register("githubAccount", { required: "GitHub account is required" })}
+                          {...register("GitHubAccount")}
                         />
-                        {errors.githubAccount && (
-                          <p className="mt-1 text-sm text-red-500">{String(errors.githubAccount.message)}</p>
-                        )}
                       </div>
 
                       <div>
@@ -393,13 +422,13 @@ const InternshipForm = () => {
                           type="text"
                           className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-orange text-white"
                           placeholder="Your Mindplax username"
-                          {...register("mindplaxAccount")}
+                          {...register("MindplaxAccount")}
                         />
                       </div>
 
-                      <div className="md:col-span-2">
+                      <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1">
-                          Have you taken any online courses in AI, ML, or related fields? *
+                          Have you taken any online courses in AI, ML, or related fields?
                         </label>
                         <div className="flex gap-6 mt-2">
                           <label className="flex items-center">
@@ -407,7 +436,7 @@ const InternshipForm = () => {
                               type="radio"
                               className="w-4 h-4 text-brand-orange bg-gray-800 border-gray-700"
                               value="yes"
-                              {...register("onlineCourses", { required: "Please answer this question" })}
+                              {...register("HasTakenOnlineCourses")}
                             />
                             <span className="ml-2 text-gray-300">Yes</span>
                           </label>
@@ -416,115 +445,39 @@ const InternshipForm = () => {
                               type="radio"
                               className="w-4 h-4 text-brand-orange bg-gray-800 border-gray-700"
                               value="no"
-                              {...register("onlineCourses", { required: "Please answer this question" })}
+                              {...register("HasTakenOnlineCourses")}
                             />
                             <span className="ml-2 text-gray-300">No</span>
                           </label>
                         </div>
-                        {errors.onlineCourses && (
-                          <p className="mt-1 text-sm text-red-500">{String(errors.onlineCourses.message)}</p>
-                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-1">
+                          Promised Hours of Commitment per Week
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-orange text-white"
+                          placeholder="Hours per week"
+                          {...register("PromisedHours")}
+                        />
                       </div>
 
                       <div className="md:col-span-2">
                         <label className="block text-sm font-medium text-gray-300 mb-1">
-                          If yes, please list the courses:
+                          Why should you get this opportunity?
                         </label>
                         <textarea
                           className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-orange text-white"
-                          rows={3}
-                          placeholder="List any relevant courses you've taken"
-                          {...register("coursesList")}
-                        ></textarea>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {currentStep === 3 && (
-                  <motion.div
-                    key="step3"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.3 }}
-                    className="space-y-6"
-                  >
-                    <h2 className="text-xl font-semibold mb-4 text-white">Additional Information</h2>
-
-                    <div className="space-y-6">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">Areas of Interest *</label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
-                          {["AI", "Machine Learning", "Robotics", "Blockchain", "AGI", "AI Ethics"].map((area) => (
-                            <label key={area} className="flex items-center">
-                              <input
-                                type="checkbox"
-                                className="w-4 h-4 text-brand-orange rounded bg-gray-800 border-gray-700"
-                                value={area}
-                                {...register("areasOfInterest", { required: "Please select at least one area" })}
-                              />
-                              <span className="ml-2 text-gray-300">{area}</span>
-                            </label>
-                          ))}
-                        </div>
-                        {errors.areasOfInterest && (
-                          <p className="mt-1 text-sm text-red-500">{String(errors.areasOfInterest.message)}</p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">
-                          Promised Hours of Commitment per Week *
-                        </label>
-                        <input
-                          type="number"
-                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${errors.commitmentHours ? "border-red-500" : "border-gray-700"} focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
-                          placeholder="Hours per week"
-                          min="1"
-                          max="40"
-                          {...register("commitmentHours", {
-                            required: "Commitment hours are required",
-                            min: {
-                              value: 5,
-                              message: "Minimum 5 hours per week required",
-                            },
-                            max: {
-                              value: 40,
-                              message: "Maximum 40 hours per week",
-                            },
-                          })}
-                        />
-                        {errors.commitmentHours && (
-                          <p className="mt-1 text-sm text-red-500">{String(errors.commitmentHours.message)}</p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">
-                          Why should you get this opportunity? *
-                        </label>
-                        <textarea
-                          className={`w-full px-4 py-3 rounded-lg bg-gray-800 border ${errors.explanation ? "border-red-500" : "border-gray-700"} focus:outline-none focus:ring-2 focus:ring-brand-orange text-white`}
                           rows={5}
                           placeholder="Briefly explain why you should be selected for this internship"
-                          {...register("explanation", {
-                            required: "This field is required",
-                            minLength: {
-                              value: 100,
-                              message: "Please provide at least 100 characters",
-                            },
-                          })}
-                        ></textarea>
-                        {errors.explanation?.message && (
-                          <p className="mt-1 text-sm text-red-500">{errors.explanation.message as string}</p>
-                        )}
-                        <p className="mt-1 text-sm text-gray-500">
-                          {watch("explanation")?.length || 0} characters (minimum 100)
-                        </p>
+                          {...register("OpportunityReason")}
+                        />
+                        <p className="mt-1 text-sm text-gray-500">{watch("OpportunityReason")?.length || 0} characters</p>
                       </div>
 
-                      <div>
+                      <div className="md:col-span-2">
                         <label className="block text-sm font-medium text-gray-300 mb-1">Upload CV/Resume *</label>
                         <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-700 border-dashed rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors">
                           <div className="space-y-1 text-center">
@@ -537,10 +490,10 @@ const InternshipForm = () => {
                                   className="sr-only"
                                   accept=".pdf,.doc,.docx"
                                   onChange={(e) => {
-                                    const file = e.target.files?.[0]
+                                    const file = e.target.files?.[0];
                                     if (file) {
-                                      setValue("cv", file)
-                                      trigger("cv")
+                                      setValue("CV", file);
+                                      trigger("CV");
                                     }
                                   }}
                                 />
@@ -550,12 +503,8 @@ const InternshipForm = () => {
                             <p className="text-xs text-gray-500">PDF, DOC, or DOCX up to 5MB</p>
                           </div>
                         </div>
-                        {watch("cv") && (
-                          <p className="mt-2 text-sm text-green-500">File selected: {watch("cv").name}</p>
-                        )}
-                        {errors.cv?.message && (
-                          <p className="mt-1 text-sm text-red-500">{errors.cv.message as string}</p>
-                        )}
+                        {watch("CV") && <p className="mt-2 text-sm text-green-500">File selected: {watch("CV").name}</p>}
+                        {errors.CV && <p className="mt-1 text-sm text-red-500">{String(errors.CV.message)}</p>}
                       </div>
                     </div>
                   </motion.div>
@@ -575,7 +524,7 @@ const InternshipForm = () => {
                     <span>Previous</span>
                   </motion.button>
                 ) : (
-                  <div></div>
+                  <div />
                 )}
 
                 <motion.button
@@ -601,11 +550,8 @@ const InternshipForm = () => {
           </motion.div>
         </motion.div>
       </div>
+    </div>
+  );
+};
 
-      {/* Footer */}
-     </div>
-  )
-}
-
-export default InternshipForm
-
+export default InternshipForm;
