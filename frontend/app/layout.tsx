@@ -1,8 +1,8 @@
 import "./global.css";
 import { ReactNode } from "react";
 import { Michroma, Comic_Neue,Smooch_Sans } from "next/font/google";
-import Navbar from "./components/NavBar";
-import Footer from "./components/footer";
+import Navbar from "./components/navBar";
+import Footer from "./components/Footer";
 
 // Define the Michroma font
 const michroma = Michroma({
