@@ -1,10 +1,7 @@
 // app/focus-areas.tsx
 
-import React from 'react';
-import FocusAreas from '../Components/Focus_Areas';
-import Navbar from '../Components/navBar';
-import Footer from '../Components/Footer';
-
+import type React from "react"
+import FocusAreas from "../Components/Focus_Areas"
 
 const FocusAreasPage: React.FC = () => {
   return (
@@ -13,7 +10,8 @@ const FocusAreasPage: React.FC = () => {
       <FocusAreas />
       {/* <Footer/> */}
     </main>
-  );
-};
+  )
+}
 
-export default FocusAreasPage;
+export default FocusAreasPage
+

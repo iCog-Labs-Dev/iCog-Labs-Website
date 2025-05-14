@@ -1,0 +1,90 @@
+{
+  "kind": "collectionType",
+  "collectionName": "internship_applications",
+  "info": {
+    "singularName": "internship-application",
+    "pluralName": "internship-applications",
+    "displayName": "Internship Application",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "ApplicantFullName": {
+      "type": "string",
+      "required": true
+    },
+    "ApplicantEmail": {
+      "type": "email",
+      "required": true
+    },
+    "ApplicantPhone": {
+      "type": "string"
+    },
+    "DateOfBirth": {
+      "type": "date"
+    },
+    "GitHubAccount": {
+      "type": "string"
+    },
+    "MindplaxAccount": {
+      "type": "string"
+    },
+    "PromisedHours": {
+      "type": "string"
+    },
+    "CurrentLocation": {
+      "type": "string"
+    },
+    "Gender": {
+      "type": "enumeration",
+      "enum": [
+        "Male",
+        "Female"
+      ]
+    },
+    "HasTakenOnlineCourses": {
+      "type": "boolean"
+    },
+    "EducationLevel": {
+      "type": "enumeration",
+      "enum": [
+        "High School",
+        "Some College",
+        "Bachelor's Degree",
+        "Master's Degree",
+        "PhD",
+        "Other"
+      ]
+    },
+    "OpportunityReason": {
+      "type": "text"
+    },
+    "CV": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "CurrentStatus": {
+      "type": "enumeration",
+      "enum": [
+        "Submitted",
+        "Under Review",
+        "Interviewing",
+        "Rejected",
+        "Accepted"
+      ],
+      "default": "Submitted",
+      "required": false
+    },
+    "internship": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::internship.internship"
+    }
+  }
+}

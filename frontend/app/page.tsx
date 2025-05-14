@@ -29,5 +29,6 @@ export default function HomePage() {
       <InternshipSection />
      
     </main>
-  );
+  )
 }
+
