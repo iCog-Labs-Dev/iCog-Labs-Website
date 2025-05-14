@@ -1,6 +1,6 @@
 import "./global.css";
 import { ReactNode } from "react";
-import { Michroma, Comic_Neue } from "next/font/google";
+import { Michroma, Comic_Neue,Smooch_Sans } from "next/font/google";
 import Navbar from "./components/NavBar";
 import Footer from "./components/footer";
 
@@ -16,7 +16,20 @@ const comic = Comic_Neue({
   subsets: ["latin"],
   variable: "--font-comic",
   display: "swap",
+  style: "italic",
+
 });
+
+const smooch = Smooch_Sans({
+  weight: "700", // Michroma only has regular weight
+  subsets: ["latin"],
+  variable: "--font-smooch",
+  display: "swap",
+
+    
+});
+
+
 
 export const metadata = {
   title: "iCogLabs",
@@ -27,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={` text-white m-0 p-0 ${michroma.variable} ${comic.variable}`}
+      className={` text-white m-0 p-0 ${michroma.variable} ${comic.variable} ${smooch.variable}`}
     >
       <body className="m-0 p-0 box-border overflow-x-hidden font-sans">
         <Navbar />
