@@ -21,6 +21,9 @@
 .font-comic {
   font-family: var(--font-comic), sans-serif;
 }
+.font-smooch {
+  font-family: var(--font-smooch), sans-serif;
+}
 
 .gradient-text {
   background: linear-gradient(to right, #facc15, #f97316, #c2410c); /* yellow-400 to orange-700 */
