@@ -1,7 +1,6 @@
 import ArticleShowcase from "./components/articles";
 import Card from "./components/cards";
 import InternshipSection from "./components/careers";
-import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import NewsCoverage from "./components/news";
 import PartnersSection from "./components/partners";
