@@ -8,9 +8,7 @@ import axios from "axios";
 import { format } from "date-fns";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
-import NeuralNetwork from "../../Components/NeuralNetwork";
-import BrainStructure from "../../Components/BrainStructure";
-import LogoGears from "../../Components/LogoGears";
+
 import { FaArrowLeft } from "react-icons/fa";
 
 interface FeaturedImage {
@@ -127,13 +125,10 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
     return (
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center bg-black">
         <div className="fixed inset-0 z-0 opacity-30">
-          <NeuralNetwork />
         </div>
         <div className="fixed inset-0 z-0">
-          <BrainStructure />
         </div>
         <div className="fixed inset-0 z-0">
-          <LogoGears />
         </div>
         <motion.div
           className="text-white text-xl"
@@ -150,13 +145,10 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
     return (
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center bg-black">
         <div className="fixed inset-0 z-0 opacity-30">
-          <NeuralNetwork />
         </div>
         <div className="fixed inset-0 z-0">
-          <BrainStructure />
         </div>
         <div className="fixed inset-0 z-0">
-          <LogoGears />
         </div>
         <motion.div
           className="bg-gray-900 rounded-xl shadow-md p-12 max-w-2xl w-full text-center border border-gray-800 relative z-10"
@@ -199,13 +191,10 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
   return (
     <div className="pt-24 pb-16 bg-black min-h-screen">
       <div className="fixed inset-0 z-0 opacity-30">
-        <NeuralNetwork />
       </div>
       <div className="fixed inset-0 z-0">
-        <BrainStructure />
-      </div>
+\      </div>
       <div className="fixed inset-0 z-0">
-        <LogoGears />
       </div>
 
       <div className="container-custom mx-auto px-4 relative z-10">

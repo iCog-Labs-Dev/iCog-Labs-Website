@@ -2,10 +2,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRightIcon } from "../components/icons/arrow-up-right";
-
-import { SectionHeader } from "../components/sectionHeader";
-import { GearIcon } from "../components/icons/gear-icon";
+import { SectionHeader } from "../../components/sectionHeader";
+import { GearIcon } from "../../components/icons/gear-icon";
+import { ArrowUpRightIcon } from "../../components/icons/arrow-up-right";
 
 const ALL_ARTICLES = [
     {
