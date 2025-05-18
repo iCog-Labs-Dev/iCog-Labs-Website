@@ -5,10 +5,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { FaArrowRight, FaBriefcase, FaGraduationCap, FaUsers, FaMapMarkerAlt } from "react-icons/fa"
 import { AiOutlineMail } from "react-icons/ai"
-import NeuralNetwork from "../Components/NeuralNetwork"
-import BrainStructure from "../Components/BrainStructure"
-import LogoGears from "../Components/LogoGears"
-import FuturisticFooter from "../Components/FuturisticFooter"
+
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -160,16 +157,7 @@ function JobCard({ title, location, type, description, skills, salary }: JobCard
 function CareersPage() {
   return (
     <div className="pt-24 pb-16 bg-black min-h-screen">
-      {/* Background Elements */}
-      <div className="fixed inset-0 z-0 opacity-30">
-        <NeuralNetwork />
-      </div>
-      <div className="fixed inset-0 z-0">
-        <BrainStructure />
-      </div>
-      <div className="fixed inset-0 z-0">
-        <LogoGears />
-      </div>
+     
 
       {/* Hero Section */}
       <section className="py-16 md:py-24 relative z-10">
