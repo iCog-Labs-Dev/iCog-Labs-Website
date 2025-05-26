@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: strapi-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 1337
+
+      # Database
+      - key: DATABASE_CLIENT
+        value: postgres
+      - key: DATABASE_URL
+        fromDatabase:
+          name: icogLabs
+          property: connectionString
+      - key: DATABASE_SSL
+        value: true
+
+      # Cloudinary
+      - key: CLOUDINARY_NAME
+        value: duzitudfh
+      - key: CLOUDINARY_KEY
+        value: 6141461762054538
+      - key: CLOUDINARY_SECRET
+        value: JGEmprY7bdL6Y1xILb0pLVE_ekg
+
+      # Strapi secrets — use the same values as in your .env
+      - key: APP_KEYS
+        value: FqZaupBd6OPb9eiGfkukEQ==,BCL9kK6jOgJOAmT/m6XZFg==,ERuWFH3dEKE5ulba5nIBvA==,Y8jDadpKVpXvuBTlx+unrg==
+      - key: API_TOKEN_SALT
+        value: ScyjGaxmMXvlnj+XPCChzQ==
+      - key: ADMIN_JWT_SECRET
+        value: no+DI+y41EdAtHmNAS2Q4w==
+      - key: TRANSFER_TOKEN_SALT
+        value: 6WjFkXTQZ1sMHpuO0yVAXw==
+      - key: JWT_SECRET
+        value: NWKzjrQqLTotRvaU14YIHw==
+
+databases:
+  - name: icogLabs
+    plan: free
