@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
 
     try {
-      const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
+      const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ;
       const strapiToken = process.env.STRAPI_FORM_API_TOKEN;
 
       if (!strapiToken) {
