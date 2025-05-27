@@ -7,7 +7,7 @@ module.exports = () => ({
   connection: {
     client: "postgres",
     connection: {
-      host: '333',
+      host: parsed.host,
       port: "5432",
       database: parsed.database,
       user: parsed.user,
