@@ -29,11 +29,11 @@ services:
 
       # Cloudinary
       - key: CLOUDINARY_NAME
-        value: duzitudfh
+        value: dpm9pvb6o
       - key: CLOUDINARY_KEY
-        value: 6141461762054538
+        value: 6141463987493442418191762054538
       - key: CLOUDINARY_SECRET
-        value: JGEmprY7bdL6Y1xILb0pLVE_ekg
+        value: JGEUCkZ5fn5sQ_JI4JUTsND3I-27yg
 
       # Strapi secrets 
       - key: APP_KEYS
