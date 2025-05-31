@@ -1,4 +1,3 @@
-// app/articles/hero-client.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -18,7 +17,8 @@ export default function HeroClient() {
           Our <span className="text-orange-500">Knowledge</span> Repository
         </h1>
         <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-          Deep dives, research findings, and innovative perspectives from our team of experts
+          Deep dives, research findings, and innovative perspectives from our
+          team of experts
         </p>
       </motion.div>
     </div>

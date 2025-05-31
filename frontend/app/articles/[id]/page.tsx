@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -10,6 +9,7 @@ import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 
 import { FaArrowLeft } from "react-icons/fa";
+import React from "react";
 
 interface FeaturedImage {
   id: number;
@@ -39,14 +39,22 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-export default function ArticleDetailPage({ params }: { params: { id: string } }) {
+export default function ArticleDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = React.use(params);
   const [article, setArticle] = useState<Article | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [cleanContent, setCleanContent] = useState<string>("");
 
   const fetchArticle = async (id: string) => {
-    const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337";
+    // Remove any trailing spaces from the URL
+    const strapiApiUrl = (
+      process.env.backend_URI || "https://strapi-backend-rgg9.onrender.com"
+    ).trim();
     const strapiToken = process.env.NEXT_PUBLIC_STRAPI_TOKEN || "";
 
     try {
@@ -60,13 +68,32 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
         }
       );
 
-      const fetchedArticle = response.data.data || null;
+      const fetchedArticle = response.data.data?.attributes || null;
       if (!fetchedArticle) {
         setError("Article not found");
         return;
       }
-      console.log("Raw article.content:", fetchedArticle.content); // Debug raw content
-      setArticle(fetchedArticle);
+      // Handle FeaturedImage for Strapi v4+ (with data/attributes)
+      let featuredImages: FeaturedImage[] | null = null;
+      if (fetchedArticle.FeaturedImage && fetchedArticle.FeaturedImage.data) {
+        featuredImages = fetchedArticle.FeaturedImage.data.map((img: any) => ({
+          id: img.id,
+          url:
+            img.attributes?.formats?.medium?.url || img.attributes?.url || "",
+          alternativeText: img.attributes?.alternativeText || "",
+        }));
+      }
+      setArticle({
+        id: response.data.data.id,
+        documentId: fetchedArticle.documentId || "",
+        Title: fetchedArticle.Title,
+        PublicationDate: fetchedArticle.PublicationDate,
+        Author: fetchedArticle.Author,
+        Excerpt: fetchedArticle.Excerpt,
+        Slug: fetchedArticle.Slug,
+        content: fetchedArticle.content,
+        FeaturedImage: featuredImages,
+      });
     } catch (err: any) {
       console.error("Error fetching article:", err);
       setError(
@@ -84,9 +111,9 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
     try {
       // Try parsing as Markdown
       const htmlContent = await marked(content, {
-            gfm: true,
-            breaks: true,
-          });
+        gfm: true,
+        breaks: true,
+      });
       const sanitized = DOMPurify.sanitize(htmlContent, {
         ADD_ATTR: ["target", "rel", "src"],
         ADD_TAGS: ["img"],
@@ -106,14 +133,13 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
 
   useEffect(() => {
     // Safely access params.id
-    const id = params.id;
     if (id) {
       fetchArticle(id);
     } else {
       setError("Invalid article ID");
       setIsLoading(false);
     }
-  }, [params.id]); // Dependency on params.id is safe here
+  }, [id]); // Dependency on params.id is safe here
 
   useEffect(() => {
     if (article?.content) {
@@ -124,12 +150,9 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
   if (isLoading) {
     return (
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center bg-black">
-        <div className="fixed inset-0 z-0 opacity-30">
-        </div>
-        <div className="fixed inset-0 z-0">
-        </div>
-        <div className="fixed inset-0 z-0">
-        </div>
+        <div className="fixed inset-0 z-0 opacity-30"></div>
+        <div className="fixed inset-0 z-0"></div>
+        <div className="fixed inset-0 z-0"></div>
         <motion.div
           className="text-white text-xl"
           animate={{ opacity: [0.5, 1, 0.5] }}
@@ -144,12 +167,9 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
   if (error || !article) {
     return (
       <div className="min-h-screen pt-24 pb-16 flex items-center justify-center bg-black">
-        <div className="fixed inset-0 z-0 opacity-30">
-        </div>
-        <div className="fixed inset-0 z-0">
-        </div>
-        <div className="fixed inset-0 z-0">
-        </div>
+        <div className="fixed inset-0 z-0 opacity-30"></div>
+        <div className="fixed inset-0 z-0"></div>
+        <div className="fixed inset-0 z-0"></div>
         <motion.div
           className="bg-gray-900 rounded-xl shadow-md p-12 max-w-2xl w-full text-center border border-gray-800 relative z-10"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -166,7 +186,10 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
             <Link href="/articles">
               <motion.button
                 className="gradient-bg text-white font-medium px-6 py-3 rounded-lg transition-all"
-                whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(254, 142, 3, 0.4)" }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 0 15px rgba(254, 142, 3, 0.4)",
+                }}
                 whileTap={{ scale: 0.95 }}
               >
                 Back to Articles
@@ -175,8 +198,11 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
             {error && (
               <motion.button
                 className="bg-gray-800 text-white font-medium px-6 py-3 rounded-lg border border-gray-700 transition-all"
-                onClick={() => fetchArticle(params.id)}
-                whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(255, 255, 255, 0.1)" }}
+                onClick={() => fetchArticle(id)}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 0 15px rgba(255, 255, 255, 0.1)",
+                }}
                 whileTap={{ scale: 0.95 }}
               >
                 Retry
@@ -190,12 +216,9 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
 
   return (
     <div className="pt-24 pb-16 bg-black min-h-screen">
-      <div className="fixed inset-0 z-0 opacity-30">
-      </div>
-      <div className="fixed inset-0 z-0">
-\      </div>
-      <div className="fixed inset-0 z-0">
-      </div>
+      <div className="fixed inset-0 z-0 opacity-30"></div>
+      <div className="fixed inset-0 z-0">\ </div>
+      <div className="fixed inset-0 z-0"></div>
 
       <div className="container-custom mx-auto px-4 relative z-10">
         <motion.div initial="hidden" animate="visible" variants={fadeIn}>
@@ -220,8 +243,10 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
                 transition={{ duration: 0.5 }}
               >
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${article.FeaturedImage[0].url}`}
-                  alt={article.FeaturedImage[0].alternativeText || article.Title}
+                  src={`${article.FeaturedImage[0].url}`}
+                  alt={
+                    article.FeaturedImage[0].alternativeText || article.Title
+                  }
                   fill
                   style={{ objectFit: "cover" }}
                   className="rounded-lg"
@@ -240,7 +265,10 @@ export default function ArticleDetailPage({ params }: { params: { id: string } }
               variants={fadeInUp}
             >
               Published on{" "}
-              {format(new Date(article.PublicationDate), "MMMM d, yyyy")}
+              {article.PublicationDate &&
+              !isNaN(new Date(article.PublicationDate).getTime())
+                ? format(new Date(article.PublicationDate), "MMMM d, yyyy")
+                : "Unknown date"}
             </motion.p>
             {article.Author && (
               <motion.p

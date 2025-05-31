@@ -1,6 +1,6 @@
-// app/articles/page.tsx
 import axios from "axios";
 import ArticleListClient from "./cl";
+
 import HeroClient from "./hero-client";
 import CTAClient from "./cta-client";
 
@@ -13,31 +13,63 @@ interface Article {
   Excerpt?: string;
   Slug: string;
   content: string;
-  FeaturedImage?: {
+  FeaturedImage?: Array<{
     id: number;
     url: string;
     alternativeText?: string;
-  } | null;
+    formats?: {
+      small?: { url: string };
+      thumbnail?: { url: string };
+    };
+  }> | null;
 }
 
 async function fetchArticles(): Promise<Article[]> {
-  const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337";
+  const strapiApiUrl =
+    process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337";
   const strapiToken = process.env.NEXT_PUBLIC_STRAPI_TOKEN || "";
 
   try {
     const response = await axios.get(
-      
-      `${strapiApiUrl}/api/articles?populate=FeaturedImage `,
+      `${strapiApiUrl}/api/articles?populate=FeaturedImage`,
       {
         headers: {
           Authorization: `Bearer ${strapiToken}`,
         },
       }
     );
-
     const articles = response.data.data || [];
-    console.log("Fetched Articles:", JSON.stringify(articles, null, 2));
-    return articles;
+    // Map Strapi v4+ response to Article[]
+    return articles.map((item: any) => {
+      const attrs = item.attributes;
+      let featuredImages = null;
+      if (attrs.FeaturedImage && attrs.FeaturedImage.data) {
+        featuredImages = Array.isArray(attrs.FeaturedImage.data)
+          ? attrs.FeaturedImage.data.map((img: any) => ({
+              id: img.id,
+              url:
+                img.attributes?.formats?.small?.url ||
+                img.attributes?.url ||
+                "",
+              alternativeText: img.attributes?.alternativeText || "",
+              formats: img.attributes?.formats || {},
+            }))
+          : [];
+      } else {
+        featuredImages = [];
+      }
+      return {
+        id: item.id,
+        documentId: attrs.documentId || "",
+        Title: attrs.Title,
+        PublicationDate: attrs.PublicationDate,
+        Author: attrs.Author,
+        Excerpt: attrs.Excerpt,
+        Slug: attrs.Slug,
+        content: attrs.content,
+        FeaturedImage: featuredImages,
+      };
+    });
   } catch (error) {
     console.error("Error fetching articles:", error);
     return [];

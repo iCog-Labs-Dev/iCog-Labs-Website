@@ -1,4 +1,3 @@
-// app/articles/cl.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -33,48 +32,50 @@ interface ArticleListClientProps {
   articles: Article[];
 }
 
-const strapiApiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337";
+const strapiApiUrl =
+  process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337";
 
-export default function ArticleListClient({ articles }: ArticleListClientProps) {
+export default function ArticleListClient({
+  articles,
+}: ArticleListClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   // Derive a category (since Strapi schema doesn't have it)
   const getCategory = (title: string) => {
-    const lowerTitle = title.toLowerCase();
-    if (lowerTitle.includes("ai") || lowerTitle.includes("machine learning")) return "Technology";
-    if (lowerTitle.includes("sustainab") || lowerTitle.includes("green")) return "Sustainability";
-    if (lowerTitle.includes("design") || lowerTitle.includes("ux")) return "Design";
-    if (lowerTitle.includes("blockchain") || lowerTitle.includes("innovat")) return "Innovation";
-    if (lowerTitle.includes("healthcare") || lowerTitle.includes("diagnos")) return "Healthcare";
+    if (!title) return "General"; // Default category if title is empty
+    const lowerTitle = title;
+    if (lowerTitle.includes("ai") || lowerTitle.includes("machine learning"))
+      return "Technology";
+    if (lowerTitle.includes("sustainab") || lowerTitle.includes("green"))
+      return "Sustainability";
+    if (lowerTitle.includes("design") || lowerTitle.includes("ux"))
+      return "Design";
+    if (lowerTitle.includes("blockchain") || lowerTitle.includes("innovat"))
+      return "Innovation";
+    if (lowerTitle.includes("healthcare") || lowerTitle.includes("diagnos"))
+      return "Healthcare";
     return "General";
   };
 
   // Estimate read time based on content length
   const estimateReadTime = (content: string) => {
+    if (!content) return "0 min read"; // Handle empty content
     const wordsPerMinute = 200;
     const wordCount = content.split(/\s+/).length;
     const minutes = Math.ceil(wordCount / wordsPerMinute);
     return `${minutes} min read`;
   };
 
-  // Extract image URL from content as a fallback
-  const getImageFromContent = (content: string): string | null => {
-    const imageRegex = /!\[.*?\]\((.*?)\)/;
-    const match = content.match(imageRegex);
-    return match ? match[1] : null;
-  };
-
   // Filter articles based on search and category
-  const filteredArticles = articles.filter((article) => {
-    const matchesSearch = article.Title.toLowerCase().includes(searchQuery.toLowerCase()) || article.Excerpt?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || getCategory(article.Title) === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const filteredArticles = articles;
 
   // Log filtered articles for debugging
   useEffect(() => {
-    console.log("Filtered Articles:", JSON.stringify(filteredArticles, null, 2));
+    console.log(
+      "Filtered Articles:",
+      JSON.stringify(filteredArticles, null, 2)
+    );
   }, [filteredArticles]);
 
   return (
@@ -101,16 +102,30 @@ export default function ArticleListClient({ articles }: ArticleListClientProps) 
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
             </svg>
           </div>
           <div className="flex gap-2 flex-wrap justify-center">
-            {["All", "Technology", "Sustainability", "Design", "Innovation", "Healthcare"].map((category) => (
+            {[
+              "All",
+              "Technology",
+              "Sustainability",
+              "Design",
+              "Innovation",
+              "Healthcare",
+            ].map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  selectedCategory === category ? "bg-orange-600 text-white" : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  selectedCategory === category
+                    ? "bg-orange-600 text-white"
+                    : "bg-gray-800 text-gray-300 hover:bg-gray-700"
                 }`}
               >
                 {category}
@@ -139,14 +154,17 @@ export default function ArticleListClient({ articles }: ArticleListClientProps) 
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
                   src={
-                    Array.isArray(article.FeaturedImage) && article.FeaturedImage.length > 0
-                      ? strapiApiUrl + (article.FeaturedImage[0].formats?.small?.url || article.FeaturedImage[0].url)
-                      : getImageFromContent(article.content) || "https://via.placeholder.com/400x300?text=No+Image"
+                    Array.isArray(article.FeaturedImage) &&
+                    article.FeaturedImage.length > 0
+                      ? article.FeaturedImage[0].formats?.small?.url ||
+                        article.FeaturedImage[0].url
+                      : "https://via.placeholder.com/400x300?text=No+Image"
                   }
                   alt={article.Title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   onError={(e) => {
-                    e.currentTarget.src = "https://via.placeholder.com/400x300?text=Image+Error";
+                    e.currentTarget.src =
+                      "https://via.placeholder.com/400x300?text=Image+Error";
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
@@ -157,11 +175,14 @@ export default function ArticleListClient({ articles }: ArticleListClientProps) 
               <div className="p-6">
                 <div className="flex items-center text-sm text-gray-400 mb-3">
                   <span>
-                    {new Date(article.PublicationDate).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
+                    {new Date(article.PublicationDate).toLocaleDateString(
+                      "en-US",
+                      {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      }
+                    )}
                   </span>
                   <span className="mx-2">•</span>
                   <span>{estimateReadTime(article.content)}</span>
@@ -169,9 +190,11 @@ export default function ArticleListClient({ articles }: ArticleListClientProps) 
                 <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">
                   {article.Title}
                 </h3>
-                <p className="text-gray-300 mb-5">{article.Excerpt || "No excerpt available."}</p>
+                <p className="text-gray-300 mb-5">
+                  {article.Excerpt || "No excerpt available."}
+                </p>
                 <a
-                  href={`/articles/${article.documentId}`} // Changed from documentId to Slug
+                  href={`/articles/${article.id}`} // Changed from documentId to Slug
                   className="inline-flex items-center text-orange-400 font-medium hover:text-orange-300 transition-colors group-hover:underline"
                 >
                   Read article
@@ -195,7 +218,9 @@ export default function ArticleListClient({ articles }: ArticleListClientProps) 
           <button className="px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors">
             Previous
           </button>
-          <button className="px-4 py-2 rounded-lg bg-orange-600 text-white">1</button>
+          <button className="px-4 py-2 rounded-lg bg-orange-600 text-white">
+            1
+          </button>
           <button className="px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors">
             2
           </button>

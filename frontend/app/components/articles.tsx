@@ -8,46 +8,60 @@ const COMPANY_ARTICLES = [
   {
     id: 1,
     title: "The Future of AI in Business Automation",
-    excerpt: "Exploring how our AI solutions are transforming enterprise workflows with unprecedented efficiency gains.",
+    excerpt:
+      "Exploring how our AI solutions are transforming enterprise workflows with unprecedented efficiency gains.",
     category: "Technology",
     date: "May 15, 2023",
     readTime: "8 min read",
-    image: "https://media.istockphoto.com/id/2166193783/photo/data-analytics-team-meeting-at-night.webp?a=1&b=1&s=612x612&w=0&k=20&c=8rcZn4Dbs7qAE4jn8C2_NrED5R_XWJCJMWMFCJYYvpU=",
-    link: "#"
+    image:
+      "https://media.istockphoto.com/id/2166193783/photo/data-analytics-team-meeting-at-night.webp?a=1&b=1&s=612x612&w=0&k=20&c=8rcZn4Dbs7qAE4jn8C2_NrED5R_XWJCJMWMFCJYYvpU=",
+    link: "#",
   },
   {
     id: 2,
     title: "Sustainable Tech: Building Greener Digital Solutions",
-    excerpt: "How we're reducing the carbon footprint of digital infrastructure through innovative engineering.",
+    excerpt:
+      "How we're reducing the carbon footprint of digital infrastructure through innovative engineering.",
     category: "Sustainability",
     date: "April 28, 2023",
     readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80",
-    link: "#"
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80",
+    link: "#",
   },
   {
     id: 3,
     title: "UX Design Trends That Will Dominate 2024",
-    excerpt: "Our design team predicts the most impactful user experience innovations coming next year.",
+    excerpt:
+      "Our design team predicts the most impactful user experience innovations coming next year.",
     category: "Design",
     date: "March 10, 2023",
     readTime: "10 min read",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80",
-    link: "#"
+    image:
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80",
+    link: "#",
   },
   {
     id: 4,
     title: "Blockchain Beyond Cryptocurrency: Real-World Applications",
-    excerpt: "How we're implementing blockchain technology to solve actual business problems across industries.",
+    excerpt:
+      "How we're implementing blockchain technology to solve actual business problems across industries.",
     category: "Innovation",
     date: "February 22, 2023",
     readTime: "12 min read",
-    image: "https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
-    link: "#"
-  }
+    image:
+      "https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
+    link: "#",
+  },
 ];
 
-function GearIcon({ className, size = 24 }) {
+function GearIcon({
+  className,
+  size = 24,
+}: {
+  className?: string;
+  size?: number;
+}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +85,7 @@ function ArticleShowcase() {
   return (
     <section className="py-20 bg-gray-950 relative overflow-hidden">
       {/* Background elements */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 0.05 }}
         className="absolute top-0 left-0 w-full h-full pointer-events-none"
@@ -82,18 +96,14 @@ function ArticleShowcase() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <SectionHeader 
-  title="Thought Leadership" 
-  center 
-  mb="6"
-/>
+          <SectionHeader title="Thought Leadership" center mb="6" />
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -103,7 +113,7 @@ function ArticleShowcase() {
           >
             Our Latest Insights
           </motion.h2>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -125,8 +135,8 @@ function ArticleShowcase() {
             className="lg:col-span-3 group relative"
           >
             <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-800">
-              <img 
-                src={COMPANY_ARTICLES[0].image} 
+              <img
+                src={COMPANY_ARTICLES[0].image}
                 alt={COMPANY_ARTICLES[0].title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -147,8 +157,8 @@ function ArticleShowcase() {
               <span className="text-sm text-gray-400">
                 {COMPANY_ARTICLES[0].date} · {COMPANY_ARTICLES[0].readTime}
               </span>
-              <a 
-                href={COMPANY_ARTICLES[0].link} 
+              <a
+                href={COMPANY_ARTICLES[0].link}
                 className="flex items-center text-orange-400 font-medium hover:text-orange-300 transition-colors group-hover:underline"
               >
                 Read article
@@ -170,8 +180,8 @@ function ArticleShowcase() {
               >
                 <div className="flex gap-6 hover:bg-gray-900/50 p-3 rounded-xl transition-colors border border-gray-800">
                   <div className="flex-shrink-0 relative overflow-hidden rounded-xl w-32 h-32 shadow-md">
-                    <img 
-                      src={article.image} 
+                    <img
+                      src={article.image}
                       alt={article.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
@@ -189,7 +199,7 @@ function ArticleShowcase() {
                       <span>•</span>
                       <span>{article.readTime}</span>
                     </div>
-                    <a 
+                    <a
                       href={article.link}
                       className="mt-2 inline-flex items-center text-sm text-orange-400 hover:underline transition-colors"
                     >
@@ -209,8 +219,8 @@ function ArticleShowcase() {
               viewport={{ once: true }}
               className="pt-4 text-center"
             >
-              <a 
-                href="articles" 
+              <a
+                href="articles"
                 className="inline-flex items-center px-5 py-2.5 border border-gray-700 rounded-full text-gray-300 hover:bg-gray-800 transition-colors hover:shadow-sm hover:border-orange-500"
               >
                 View all articles

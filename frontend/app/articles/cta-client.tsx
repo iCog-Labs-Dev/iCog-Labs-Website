@@ -1,4 +1,3 @@
-// app/articles/cta-client.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -19,7 +18,8 @@ export default function CTAClient() {
           Want to stay updated with our latest insights?
         </h2>
         <p className="text-xl text-gray-400 mb-8">
-          Subscribe to our newsletter for monthly deep dives and exclusive content.
+          Subscribe to our newsletter for monthly deep dives and exclusive
+          content.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
           <input

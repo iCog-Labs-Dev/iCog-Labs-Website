@@ -86,7 +86,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           headers: {
             Authorization: `Bearer ${strapiToken}`,
           },
-        }
+        } 
       );
 
       if (response.status === 200 || response.status === 201) {

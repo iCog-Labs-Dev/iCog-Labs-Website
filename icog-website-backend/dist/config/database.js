@@ -1,16 +1,18 @@
-const parse = require('pg-connection-string').parse;
-const config = parse(process.env.DATABASE_URL);
-console.log('🔍 Database Config:', config);
-module.exports = ({ env }) => ({
+const parse = require("pg-connection-string").parse;
+const parsed = parse(process.env.DATABASE_URL);
+console.log("🔍 Parsed DB Config:", parsed);
+module.exports = () => ({
     connection: {
-        client: 'postgres',
+        client: "postgres",
         connection: {
-            host: config.host,
-            port: config.port,
-            database: config.database,
-            user: config.user,
-            password: config.password,
-            ssl: env.bool('DATABASE_SSL', true),
+            host: parsed.host,
+            port: "5432",
+            database: parsed.database,
+            user: parsed.user,
+            password: parsed.password,
+            ssl: {
+                rejectUnauthorized: false,
+            },
         },
     },
 });
