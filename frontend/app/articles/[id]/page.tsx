@@ -61,11 +61,7 @@ export default function ArticleDetailPage({
       setIsLoading(true);
       const response = await axios.get(
         `${strapiApiUrl}/api/articles/${id}?populate=FeaturedImage`,
-        {
-          headers: {
-            Authorization: `Bearer ${strapiToken}`,
-          },
-        }
+       
       );
 
       const fetchedArticle = response.data.data?.attributes || null;

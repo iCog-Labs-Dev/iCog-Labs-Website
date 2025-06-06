@@ -32,11 +32,7 @@ async function fetchArticles(): Promise<Article[]> {
   try {
     const response = await axios.get(
       `${strapiApiUrl}/api/articles?populate=FeaturedImage`,
-      {
-        headers: {
-          Authorization: `Bearer ${strapiToken}`,
-        },
-      }
+      
     );
     const articles = response.data.data || [];
     // Map Strapi v4+ response to Article[]
